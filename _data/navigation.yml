@@ -1,0 +1,40 @@
+# main links
+main:
+  - title: "Home"
+    url: https://forwarder1121.github.io/
+  - title: "GitHub"
+    url: https://github.com/forwarder1121
+
+  # - title: "Projects"
+  #   url: /projects/
+
+  # - title: "Categories"
+  #   url: /categories/
+
+# sidebar navigation (categories)
+# 2022.02.15 sidebar update : simple ver.
+categories:
+  - title: "University Lecture"
+    children:
+      - title: "Diary"
+        url: /categories/diary/
+      - title: "Book review"
+        url: /categories/bookReview/
+
+  - title: "Data Structure"
+    url: /categories/dataStructure/
+  - title: "Algorithm"
+    url: /categories/algorithm/
+  
+  - title: "백준"
+    url: /categories/백준/
+  - title: "Programmers"
+    url: /categories/programmers/
+
+  - title: "웹 기초"
+    url: /categories/웹기초/
+  - title: "React"
+    url: /categories/React/
+  - title: "Computer Network"
+    url: /categories/computerNetwork/
+  
