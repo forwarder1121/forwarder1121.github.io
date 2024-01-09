@@ -14,12 +14,10 @@ main:
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
-  - title: "University Lecture"
-    children:
-      - title: "Diary"
-        url: /categories/diary/
-      - title: "Book review"
-        url: /categories/bookReview/
+  - title: "Diary"
+    url: /categories/diary/
+  - title: "Book review"
+    url: /categories/bookReview/
 
   - title: "Data Structure"
     url: /categories/dataStructure/
