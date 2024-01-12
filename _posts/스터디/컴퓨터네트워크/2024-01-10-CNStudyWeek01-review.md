@@ -1,8 +1,7 @@
-​---
+---
 categories:
-
-- computerNetwork
-  ​---
+  - computerNetwork
+---
 
 # 컴퓨터 네트워크 모의 면접 스터디 1주차 후기
 
