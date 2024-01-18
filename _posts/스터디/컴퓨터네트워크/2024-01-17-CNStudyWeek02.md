@@ -13,11 +13,11 @@ categories:
 
 
 
-
+​            
 
 ## HTTP
 
-
+​        
 
 ### What is HTTP?
 
@@ -43,7 +43,7 @@ text는 말그대로 글자인데, 그렇다면 Hypertext는 존나 좋은 글�
 
 
 
-
+​        
 
 ### HTTP : Request, Response model
 
@@ -71,7 +71,7 @@ text는 말그대로 글자인데, 그렇다면 Hypertext는 존나 좋은 글�
 
 ![HTTP message format](https://blog.kakaocdn.net/dn/zNWLu/btqX1oiQvLm/GgDhtcghfN75p9qqXFJbv0/img.png)
 
-
+​        
 
 #### Request message
 
@@ -104,7 +104,7 @@ Request message, 즉 요청 메세지는 서버에게 '나 이거 좀 보여줘'
 
 
 
-
+​    
 
 #### Response message
 
@@ -124,7 +124,7 @@ Response message는 위의 request message 포멧에서 request line이 status l
 
 
 
-
+​            
 
 ### Difference between GET & POST
 
@@ -134,7 +134,7 @@ Response message는 위의 request message 포멧에서 request line이 status l
 
 다만 GET은 통상적으로 정보를 가져올 때 많이 쓰이고, POST는 정보를 게시할 때 많이 쓰여서 그리 명명된 것.
 
-
+​    
 
 #### GET 방식
 
@@ -152,7 +152,7 @@ Response message는 위의 request message 포멧에서 request line이 status l
 
 
 
-
+​        
 
 #### POST 방식
 
@@ -174,17 +174,17 @@ GET방식은 그냥 바로 url에 주민번호가 찍혀서 보안이 허술하�
 
 
 
-
+​            
 
 ### Difference between PUT & PATCH
 
-
+​    
 
 #### PUT 방식
 
 put : 가져다 놓는다. 만일 (A:10,B:10)가 있을 때 A:5를 put하면 (A:5)로 변함
 
-
+​    
 
 #### PATCH 방식
 
@@ -194,7 +194,7 @@ patch : 패치한다.(?) 만일 (A:10,B:10)가 있을 때 A:5를 put하면 (A:5,
 
 
 
-
+​        
 
 
 
@@ -212,7 +212,7 @@ patch : 패치한다.(?) 만일 (A:10,B:10)가 있을 때 A:5를 put하면 (A:5,
 
 
 
-
+​        
 
 ### HTTP's stateless
 
@@ -222,7 +222,7 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 
 
 
-
+​        
 
 
 
@@ -254,7 +254,7 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 
 
 
-
+​        
 
 
 
@@ -274,7 +274,7 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 
 
 
-
+​    
 
 ### HTTP/1.1 HTTP/2 HTTP/3
 
@@ -293,7 +293,7 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 
 
 
-
+​        
 
 
 
@@ -303,7 +303,7 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 
 ## HTTPS
 
-
+​    
 
 ### What is HTTPS?
 
@@ -311,7 +311,7 @@ url에 어느 순간 보면 http:// 가 https:// 로 바뀐 것을 볼 수 있�
 
 > HTTPS는 HTTP 통신이 SSL방식으로 암호화되어 있다는 뜻이다.
 
-
+​    
 
 
 
@@ -329,11 +329,11 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 
 
 
-
+​    
 
 ### 암호화 방식
 
-
+​        
 
 #### 대칭키 암호화 방식
 
@@ -345,7 +345,7 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 
 초기에 키를 보내는 과정이 필연적으로 발생하게 되는데, 이때 누군가 가로채버린다면 답이 없다.
 
-
+​        
 
 #### 비대칭키(공개키) 암호화방식
 
@@ -362,7 +362,7 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 
 
 
-
+​    
 
 
 
@@ -386,7 +386,7 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 
 
 
-
+​    
 
 ### HTTPS의 암호화 과정 (SSL Handshake)
 
@@ -428,7 +428,7 @@ TCP Handshake은 TCP 영역에서 대화를 하기 위해 악수하는 것, SSL 
 
 
 
-
+​    
 
 
 
@@ -436,7 +436,7 @@ TCP Handshake은 TCP 영역에서 대화를 하기 위해 악수하는 것, SSL 
 
 ## DNS
 
-
+​        
 
 ### What is DNS?
 
@@ -446,7 +446,7 @@ DNS는 Domain Name System의 약어로, 사람이 외우기 힘든 IP주소를 �
 
 브라우저는 우리가 문자열을 주소에 입력하면 DNS 서버에 대응하는 숫자인 IP주소를 알려달라고 요청하고, 응답받아서 알맞은 주소로 이동시킨다.
 
-
+​        
 
 
 
@@ -462,9 +462,9 @@ DNS clinet, Cashe-server, Authoriative-server가 협력해서 이름을 결정�
 4. 최종적으로 캐시서버는 알맞은 IP주소를 받는다.
 5. 캐시서버는 DNS 클라이언트인 우리의 웹 브라우저에게 IP 주소를 알린다.
 
+​    
 
-
-
+​        
 
 ### DNS Query : 재귀, 반복
 
@@ -488,7 +488,7 @@ DNS clinet, Cashe-server, Authoriative-server가 협력해서 이름을 결정�
 
 내가 DNS 동작 방식에서 말한 방식은 클라이언트인 캐쉬 서버가 다 하는 반복방식!! 이다.
 
-
+​    
 
 
 
@@ -498,7 +498,7 @@ DNS는 신뢰성을 잃는 대신 빠른 이름 결정을 위한 UDP를 택했�
 
 사용자 사용성을 위해서 UDP를 택한 것이고, DNS 내부의 존 전송에서는 TCP 방식을 쓰긴 한다.
 
-
+​    
 
 
 
@@ -506,3 +506,4 @@ DNS는 신뢰성을 잃는 대신 빠른 이름 결정을 위한 UDP를 택했�
 
 권위 서버는 루트 서버가 가장 최상단, 그리고 여러 하위 서버들이 트리 형태로 구성되어 있고, 각 서버들은 자신이 관리하는 도메인 범위(Zone)에 관련된 정보를 존파일이라는 DB에 DNS 레코드 형태로 저장한다. 도메인 이름에 대응하는 IP주소들을 가지고 있고 클라이언트한테 '쟤한테 가서 물어봐'라는 반복 쿼리에 응답한다.
 
+​    
