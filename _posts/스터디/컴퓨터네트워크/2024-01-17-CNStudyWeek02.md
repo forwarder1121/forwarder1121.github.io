@@ -9,7 +9,15 @@ categories:
 
 크게 HTTP, HTTPS, DNS에 대해 알아보았다.
 
+
+
+
+
+
+
 ## HTTP
+
+
 
 ### What is HTTP?
 
@@ -32,6 +40,10 @@ text는 말그대로 글자인데, 그렇다면 Hypertext는 존나 좋은 글�
 참고로, 인터넷으로 이미지나 영상도 볼 수 있는데 왜 굳이 hyperImg.. hypervideo.. 가 아니라 하필 text인 이유는 초기 HTTP는 진짜 오직 text, 글자만 볼 수 있었기 때문이다.
 
 그리고 세월이 흐름에 따라 지금과 같이 여러 매체 또한 주고 받을 수 있게 된 것.
+
+
+
+
 
 ### HTTP : Request, Response model
 
@@ -58,6 +70,8 @@ text는 말그대로 글자인데, 그렇다면 Hypertext는 존나 좋은 글�
 사실 포멧은 HTTP/1.1가 HTTP2로 넘어 오게 되면서 약간 달라졌는데, 현재 HTTP/1.1이 가장 대중적인 관계로 HTTP/1.1 기준의 포멧으로 알아보자.
 
 ![HTTP message format](https://blog.kakaocdn.net/dn/zNWLu/btqX1oiQvLm/GgDhtcghfN75p9qqXFJbv0/img.png)
+
+
 
 #### Request message
 
@@ -88,6 +102,10 @@ Request message, 즉 요청 메세지는 서버에게 '나 이거 좀 보여줘'
 
      요청에 따라 body가 필요없는 경우도 있으니 Body는 Request Message의 필수 요소가 아니다.
 
+
+
+
+
 #### Response message
 
 Response message는 위의 request message 포멧에서 request line이 status line으로 바뀐 것과 Header안의 requset header가 response header로 바뀐 것이 끝이다.
@@ -102,6 +120,12 @@ Response message는 위의 request message 포멧에서 request line이 status l
    - response header : 서버 상의 리소스를 식별하기 위한 정보를 지닌 **ETag 헤더**, 리다이렉션 위치를 포함하는 **Location 헤더** 등이 포함되어 있다.
    - 이하는 Request message의 포멧과 같다.
 
+
+
+
+
+
+
 ### Difference between GET & POST
 
 우선, get : 가져오다 post : 게시하다 라는 뜻 때문에 혼동이 될 수 있는데,
@@ -109,6 +133,8 @@ Response message는 위의 request message 포멧에서 request line이 status l
 **GET, POST 둘 다 서버에 요청을 보내는 Request Method**이다.
 
 다만 GET은 통상적으로 정보를 가져올 때 많이 쓰이고, POST는 정보를 게시할 때 많이 쓰여서 그리 명명된 것.
+
+
 
 #### GET 방식
 
@@ -123,6 +149,10 @@ Response message는 위의 request message 포멧에서 request line이 status l
 그래서 GET방식은 민감한 데이터를 다룰 때는 사용하지 않는다.
 
 다만 자동완성 기능과 같이 브라우저에 남는 기록, 캐시, 북마크 추가와 같은 사용자가 편리하다는 장점도 있기 때문에 민감하지 않은 검색과 같은 영역에서는 사용한다.
+
+
+
+
 
 #### POST 방식
 
@@ -140,17 +170,33 @@ GET방식은 그냥 바로 url에 주민번호가 찍혀서 보안이 허술하�
 
 실제로는 POST방식에 암호화를 적용시켜서 적용한다.
 
+
+
+
+
+
+
 ### Difference between PUT & PATCH
+
+
 
 #### PUT 방식
 
 put : 가져다 놓는다. 만일 (A:10,B:10)가 있을 때 A:5를 put하면 (A:5)로 변함
+
+
 
 #### PATCH 방식
 
 patch : 패치한다.(?) 만일 (A:10,B:10)가 있을 때 A:5를 put하면 (A:5, B:10)로 변함
 
 한마디로 put은 아예 전부 업데이트, patch는 일부를 업데이트 한다는 것.
+
+
+
+
+
+
 
 ### HTTP Status Code
 
@@ -162,11 +208,23 @@ patch : 패치한다.(?) 만일 (A:10,B:10)가 있을 때 A:5를 put하면 (A:5,
 
 ![HTTP status code](https://www.fis.kr/upload/image_attach/2022/10/72.jpg)
 
+
+
+
+
+
+
 ### HTTP's stateless
 
 HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 잇는 요청에 대한 상태를 가지고 보관하고 있지 않은 것을 말한다.
 
 단순 소개 화면 같은 경우에는 이처럼 무상태로 설계하면 응답 서버도 쉽게 바꿀 수 있기 때문에 이점이 있지만, 인터넷 쇼핑몰과 같은 경우 로그인, 장바구니와 같이 상태정보를 서버가 지속적으로 관리해야하는 경우에는 무상태성이 적합하지 않을 것.
+
+
+
+
+
+
 
 ### HTTP Keep-Alive
 
@@ -194,6 +252,12 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 
 충격적인 사실은 2000년대 전의 HTTP/0.9~1.0때에는 진짜 저 친구처럼 악수를 계속했다는 것이다. (Keep-Alive가 적용되지 않았었음)
 
+
+
+
+
+
+
 ### HTTP PipeLine
 
 클라이언트와 서버는 관 2개를 연결해 있다고 생각하자. 하나는 클라이언트가 서버로 보내는 것을 저장하는 관, 나머지는 그 반대.
@@ -205,6 +269,12 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
 그러나 이 파이프라인 기능은 TCP에서는 요청을 보내고 기다려야하는 것이 필수적이였기 때문에 먼저 보냈다고 해도 응답을 또 기대려야 했다.
 
 만일 1,2,3 요청을 보냈는데 1요청만 1시간째 하고 있다 하면 2,3은 놀고 있게 된다. 이게 HOL 블로킹(Head of Lock Blocking)이고, 따라서 파이프라인은 성과를 크게 올리지 못했다.
+
+
+
+
+
+
 
 ### HTTP/1.1 HTTP/2 HTTP/3
 
@@ -221,13 +291,29 @@ HTTP의 무상태이란 서버가 위에 나타낸 http status code가 담고 �
    1. UDP : 일단 보냄. (단점인 신뢰성은 개발자가 알아서 구현)
    2. TLS1.3 사용 : 좀더 빠른 인증방법 채택하서 빠르다.
 
+
+
+
+
+
+
+
+
+
+
 ## HTTPS
+
+
 
 ### What is HTTPS?
 
 url에 어느 순간 보면 http:// 가 https:// 로 바뀐 것을 볼 수 있는데
 
 > HTTPS는 HTTP 통신이 SSL방식으로 암호화되어 있다는 뜻이다.
+
+
+
+
 
 ### Difference between SSL & TLS
 
@@ -239,7 +325,15 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 
 참고로 SSL 1.0은 나오자마자 취약성이 발견되서 상장폐지 엔딩을 해버렸다.
 
+
+
+
+
+
+
 ### 암호화 방식
+
+
 
 #### 대칭키 암호화 방식
 
@@ -250,6 +344,8 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 그런데, 처음에 이 '같은 키'라는 건 어떻게 서로 교환할까?
 
 초기에 키를 보내는 과정이 필연적으로 발생하게 되는데, 이때 누군가 가로채버린다면 답이 없다.
+
+
 
 #### 비대칭키(공개키) 암호화방식
 
@@ -263,6 +359,10 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 1. 서버는 이 암호화를 풀 수 있는 유일한 비밀키를 가지고 있으므로, 이를 복호화한다.
 
 이는 대칭키가 가지고 있는 초기에 키를 보내는 과정에서의 취약성을 지니지 않으므로, 안전하다. 하지만 초기 수학적으로 공개키와 비밀키 쌍을 추출하는데 많은 시간이 걸리는 것이 단점이다. 따라서 실제로는 두 방식의 장점을 적절히 섞은 방식을 사용하고 있다.
+
+
+
+
 
 
 
@@ -281,6 +381,10 @@ SSL 2.0 -> SSL 3.0 -> TLS 1.0 -> TLS 1.1 -> TLS 1.2 -> TLS 1.3 이다. 여기서
 > 다시 말해, 전자 서명은 신뢰를 받는 인증기관에서 서버 A가 진짜 서버 A라고 보증서는 것을 말한다.
 >
 > (실제로는 보증이 아니라 해시값 비교를 통해 A임을 수학적으로 증명한다.)
+
+
+
+
 
 
 
@@ -326,7 +430,13 @@ TCP Handshake은 TCP 영역에서 대화를 하기 위해 악수하는 것, SSL 
 
 
 
+
+
+
+
 ## DNS
+
+
 
 ### What is DNS?
 
@@ -335,6 +445,10 @@ DNS는 Domain Name System의 약어로, 사람이 외우기 힘든 IP주소를 �
 예를 들어 "www.google.com"이란 문자열이 172.217.175.4라는 숫자에 대응한다.
 
 브라우저는 우리가 문자열을 주소에 입력하면 DNS 서버에 대응하는 숫자인 IP주소를 알려달라고 요청하고, 응답받아서 알맞은 주소로 이동시킨다.
+
+
+
+
 
 ### How DNS works?
 
@@ -347,6 +461,8 @@ DNS clinet, Cashe-server, Authoriative-server가 협력해서 이름을 결정�
 3. 권위 서버는 전체 주소에서 top-level 도메인부터 nth-level 도메인까지 내려가며 캐시 서버와 재귀적으로 통신하고, 알맞은 존파일을 가지고 있는 하위 서버의 위치를 알려준다.
 4. 최종적으로 캐시서버는 알맞은 IP주소를 받는다.
 5. 캐시서버는 DNS 클라이언트인 우리의 웹 브라우저에게 IP 주소를 알린다.
+
+
 
 
 
@@ -374,11 +490,15 @@ DNS clinet, Cashe-server, Authoriative-server가 협력해서 이름을 결정�
 
 
 
+
+
 ### Why DNS use UDP?
 
 DNS는 신뢰성을 잃는 대신 빠른 이름 결정을 위한 UDP를 택했다.
 
 사용자 사용성을 위해서 UDP를 택한 것이고, DNS 내부의 존 전송에서는 TCP 방식을 쓰긴 한다.
+
+
 
 
 
