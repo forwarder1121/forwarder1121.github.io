@@ -23,16 +23,15 @@ categories:
     url: /categories/dataStructure/
   - title: "Algorithm"
     url: /categories/algorithm/
-  
+
   - title: "백준"
     url: /categories/백준/
   - title: "Programmers"
     url: /categories/programmers/
 
   - title: "웹 기초"
-    url: /categories/웹기초/
+    url: /categories/webBase/
   - title: "React"
     url: /categories/React/
   - title: "Computer Network"
     url: /categories/computerNetwork/
-  
