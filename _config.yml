@@ -279,7 +279,7 @@ defaults:
       show_date: true
       comments: true
       toc: true
-      toc_sticky: false
+      #toc_sticky: false
       # share: true
       related: true
       sidebar:
