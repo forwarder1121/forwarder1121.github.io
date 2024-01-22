@@ -1,6 +1,8 @@
 ---
+title: "코코아 클론 후기"
+excerpt: "2주에 걸친 html css 프로젝트"
 categories:
-  - WebBase
+  - webBase
 ---
 
 # 노마드코더 KokoaClone 후기
