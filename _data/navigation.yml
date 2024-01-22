@@ -14,11 +14,6 @@ main:
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
-  - title: "Diary"
-    url: /categories/diary/
-  - title: "Book review"
-    url: /categories/bookReview/
-
   - title: "Data Structure"
     url: /categories/dataStructure/
   - title: "Algorithm"
@@ -35,3 +30,8 @@ categories:
     url: /categories/React/
   - title: "Computer Network"
     url: /categories/computerNetwork/
+
+  - title: "Diary"
+    url: /categories/diary/
+  - title: "Book review"
+    url: /categories/bookReview/
