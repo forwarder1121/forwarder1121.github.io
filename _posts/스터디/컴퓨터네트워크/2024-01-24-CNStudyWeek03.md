@@ -5,7 +5,7 @@ categories:
   - computerNetwork
 ---
 
-> 컴퓨터 내트워크 스터디 3주차
+> 컴퓨터 네트워크 스터디 3주차
 
 # Statefull : Cookie , Session, JWT
 
