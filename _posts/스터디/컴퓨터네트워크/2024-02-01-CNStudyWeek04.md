@@ -1,7 +1,5 @@
 # 컴퓨터 네트워크 스터디 4주차
 
-
-
 # UDP
 
 ## UDP의 장단점
@@ -10,15 +8,9 @@ User Datagram Protocol의 약어인 UDP는 실시간성을 높이기 위하여 �
 
 비연결성 프로토콜 이므로 일방적으로 UDP 커넥션이라는 통신로를 만들고 애플리케이션 데이터를 송신한다.
 
-
-
 ![TCP vs UDP](data:image/jpeg;base64,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)
 
-
-
 UDP는 신뢰성을 희생한 대신, 실시간성을 높인 프로토콜이라 할 수 있다.
-
-
 
 ## UDP 패킷의 구조 & 체크섬
 
@@ -31,13 +23,9 @@ UDP는 신뢰성을 희생한 대신, 실시간성을 높인 프로토콜이라 
 3. Length : 패킷의 길이
 4. Checksum : 체크섬
 
-
-
 여기서 체크섬은 수신 단말이 받아 들인 UDP 패킷의 손상 여부를 체크하는 데 사용되는 필드이다.
 
 이때 '1의 보수 연산'을 사용하여 손상 여부를 체크하고. 데이터그램을 받은 단말은 검증에 성공하면 데이터그램을 받는다.
-
-
 
 체크섬은 이와 같이 데이터가 손상되었을 경우 이를 탐지할 수 있게 한다.
 
@@ -45,29 +33,19 @@ UDP는 신뢰성을 희생한 대신, 실시간성을 높인 프로토콜이라 
 
 **체크섬 에러가 발생하지 않았다 하더라도 데이터가 유실되지 않았다는 것을 100% 보장하지는 못한다.**
 
-
-
-
-
 ## 신뢰적 데이터 전송의 원리
 
 ### Stop-And-Wait 프로토콜
 
 ![전송 후 대기 프로토콜](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTWbjI9TEg-0FREbmfhzTvP_LCbpF1uahRWmjbNta0Li5RI_f2V8xde2usANY7o_WePJI&usqp=CAU)
 
-
-
 이 프로토콜은 송신자가 하나의 프레임을 전송하고, 수신자로부터의 확인 신호(ACK)가 도착할 때까지 기다리는 프로토콜이다.
 
 송신자는 수신자로부터 확인 신호(ACK)를 받으면 다음 프레임을 전송하고, 부정 신호(NAK)를 받으면 같은 프레임을 재전송한다.
 
-
-
-이 프로토콜은 구현이 간단하고, 오류 검출 및 복구가 쉽지만, 
+이 프로토콜은 구현이 간단하고, 오류 검출 및 복구가 쉽지만,
 
 송신자는 매번 하나의 프레임만 전송할 수 있고 응답 신호를 기다려야 하므로 효율성이 낮다는 단점이 있다.
-
-
 
 ### Pipeline 프로토콜
 
@@ -89,8 +67,6 @@ stop-and-wait 프로토콜이 지닌 효율성이 낮은 단점을 극복하기 
 
 그러나 하나의 패킷 오류 때문에 많은 패킷은 재전송하는 것은 낭비이다. 그리고 이를 해결하기 위한 것이 Selective Repeat 모델이다.
 
-
-
 #### Selective Repeat
 
 selective repeat는 N번까지 잘 받았다는 의미의 Go-Back-N의 ACK(N)과 다른 의미인,
@@ -103,21 +79,13 @@ selective repeat는 N번까지 잘 받았다는 의미의 Go-Back-N의 ACK(N)과
 
 > Select Repeat은 유실된 패킷만을 재전송한다.
 
-
-
-
-
-
-
 # TCP
 
-TCP란 데이터 전송의 신뢰성을 요구하는 곳에서 사용하는 프로토콜이다.
+Transmission Control Protocol은 데이터 전송의 신뢰성을 요구하는 곳에서 사용하는 프로토콜이다.
 
 TCP는 TCP 커넥션이라는 논리적 통신로를 만들어 송신파이프, 수신파이프를 사용한다.
 
-송신 측 단말이 '데이터를 보냄!' 수신 측 단말이 '데이터를 받음!'하며 서로 확인해 가며 데이터를 보내기 때문에 신뢰성이 높다. 
-
-
+송신 측 단말이 '데이터를 보냄!' 수신 측 단말이 '데이터를 받음!'하며 서로 확인해 가며 데이터를 보내기 때문에 신뢰성이 높다.
 
 **TCP 커넥션의 단계**
 
@@ -125,16 +93,12 @@ TCP는 TCP 커넥션이라는 논리적 통신로를 만들어 송신파이프, 
 2. 접속 확립 단계
 3. 접속 종료 단계 : 4 way handshake
 
-
-
 **기본 지식**
 
 - SYN : synchronize squence numbers
 - ACK : acknowledgment
 
-
-
-## 3 way handshake	
+## 3 way handshake
 
 3 way handshake는 TCP 커넥션을 확립하기 전에 3번의 인사를 수행하는 절차이다.
 
@@ -143,8 +107,6 @@ TCP는 TCP 커넥션이라는 논리적 통신로를 만들어 송신파이프, 
 1. 클라이언트는 서버에 접속을 요청하는 SYN 패킷을 보낸다.
 2. 서버는 SYN 패킷을 받고 SYN/ACK 패킷으로 응답한다.
 3. 클라이언트는 서버에 ACK를 보내고 연결이 이루어 진다.
-
-
 
 ## 4 way handshake
 
@@ -158,23 +120,19 @@ TCP는 TCP 커넥션이라는 논리적 통신로를 만들어 송신파이프, 
 4. 클라이언트는 서버에 ACK를 보내 확인했다고 알린다.
 5. 클라이언트는 잠시 동안 TIME_WAIT상태에서 혹시 모를 패킷을 기다린 후, 커넥션을 삭제한다.
 
+## TCP 제어
 
-
-# TCP 제어
-
-## Flow Control
+### Flow Control
 
 흐름 제어는 수신 측 단말이 수행하는 흐름양 제어이다.
 
 원도우의 크기를 송신 측에 알려서 수신 측 단말이 데이터를 못 받는 경우가 발생하지 않는 선에서 가능한 많은 데이터를 송신하게 한다.
 
-
-
-## Congestion Control
+### Congestion Control
 
 혼잡 제어는 송신 측 단말이 수행하는 흐름양 제어이다.
 
-TCP가 대량의 송신 패킷에 의해 네트워크가 혼잡해지지 않도록 혼잡 제어 알고리즘을 이용하는데, 어떤 정보에 기반해 혼잡을 판단하는지에 따라 
+TCP가 대량의 송신 패킷에 의해 네트워크가 혼잡해지지 않도록 혼잡 제어 알고리즘을 이용하는데, 어떤 정보에 기반해 혼잡을 판단하는지에 따라
 
 1. 로그 기반 : 패킷이 유실
 2. 지연 기반 : 패킷이 지연
@@ -182,9 +140,7 @@ TCP가 대량의 송신 패킷에 의해 네트워크가 혼잡해지지 않도�
 
 으로 나눌 수 있다.
 
-
-
-## TCP 빠른 재전송
+### TCP 빠른 재전송
 
 ![TCP 빠른 재전송](https://velog.velcdn.com/images%2Fmu1616%2Fpost%2F878686ca-8073-420d-8e63-6afc79622f5d%2Fimage.png)
 
