@@ -69,7 +69,7 @@ UDP는 신뢰성을 희생한 대신, 실시간성을 높인 프로토콜이라 
 
 
 
-### 파이프라인 프로토콜
+### Pipeline 프로토콜
 
 stop-and-wait 프로토콜이 지닌 효율성이 낮은 단점을 극복하기 위한 프로토콜이다.
 
@@ -102,3 +102,94 @@ selective repeat는 N번까지 잘 받았다는 의미의 Go-Back-N의 ACK(N)과
 따라서 유실된 패킷 하나만 더 보내면 되므로 Go-Back-N보다 효율적이다.
 
 > Select Repeat은 유실된 패킷만을 재전송한다.
+
+
+
+
+
+
+
+# TCP
+
+TCP란 데이터 전송의 신뢰성을 요구하는 곳에서 사용하는 프로토콜이다.
+
+TCP는 TCP 커넥션이라는 논리적 통신로를 만들어 송신파이프, 수신파이프를 사용한다.
+
+송신 측 단말이 '데이터를 보냄!' 수신 측 단말이 '데이터를 받음!'하며 서로 확인해 가며 데이터를 보내기 때문에 신뢰성이 높다. 
+
+
+
+**TCP 커넥션의 단계**
+
+1. 접속 시작 단계 : 3 way handshake
+2. 접속 확립 단계
+3. 접속 종료 단계 : 4 way handshake
+
+
+
+**기본 지식**
+
+- SYN : synchronize squence numbers
+- ACK : acknowledgment
+
+
+
+## 3 way handshake	
+
+3 way handshake는 TCP 커넥션을 확립하기 전에 3번의 인사를 수행하는 절차이다.
+
+![3 way handshake](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F225A964D52F1BB6917)
+
+1. 클라이언트는 서버에 접속을 요청하는 SYN 패킷을 보낸다.
+2. 서버는 SYN 패킷을 받고 SYN/ACK 패킷으로 응답한다.
+3. 클라이언트는 서버에 ACK를 보내고 연결이 이루어 진다.
+
+
+
+## 4 way handshake
+
+4 way handshake는 TCP 커넥션을 종료하기 위해 수행하는 절차이다.
+
+![4 way handshake](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2152353F52F1C02835)
+
+1. 클라이언트가 연결을 종료하겠다는 FIN 패킷을 전송한다.
+2. 서버는 ACK를 보내고 자신의 통신이 끝날때 까지 기다린다.
+3. 서버가 통신이 끝났으면 연결이 종료되었다고 FIN 패킷 전송
+4. 클라이언트는 서버에 ACK를 보내 확인했다고 알린다.
+5. 클라이언트는 잠시 동안 TIME_WAIT상태에서 혹시 모를 패킷을 기다린 후, 커넥션을 삭제한다.
+
+
+
+# TCP 제어
+
+## Flow Control
+
+흐름 제어는 수신 측 단말이 수행하는 흐름양 제어이다.
+
+원도우의 크기를 송신 측에 알려서 수신 측 단말이 데이터를 못 받는 경우가 발생하지 않는 선에서 가능한 많은 데이터를 송신하게 한다.
+
+
+
+## Congestion Control
+
+혼잡 제어는 송신 측 단말이 수행하는 흐름양 제어이다.
+
+TCP가 대량의 송신 패킷에 의해 네트워크가 혼잡해지지 않도록 혼잡 제어 알고리즘을 이용하는데, 어떤 정보에 기반해 혼잡을 판단하는지에 따라 
+
+1. 로그 기반 : 패킷이 유실
+2. 지연 기반 : 패킷이 지연
+3. 하이브리드 기반
+
+으로 나눌 수 있다.
+
+
+
+## TCP 빠른 재전송
+
+![TCP 빠른 재전송](https://velog.velcdn.com/images%2Fmu1616%2Fpost%2F878686ca-8073-420d-8e63-6afc79622f5d%2Fimage.png)
+
+수신 측은 자신이 정상적으로 수신한 패킷의 다음 순번을 ACK 패킷으로 보내는데, 만일 중복 ACK가 수신되었다면 이는 데이터의 누락이 발생한 것.
+
+송신 측이 중복 ACK를 받게 되면, 자신이 설정한 타임아웃 시간이 지나지 않았어도 바로 해당 패킷을 재전송 하기 때문에, 빠른 전송률를 유지할 수 있다.
+
+중복 ACK가 발생하지 않는 에러(마지막 패킷의 유실 혹은 ACK가 유실)는 재전송 타임아웃에 의해 재전송 된다.
