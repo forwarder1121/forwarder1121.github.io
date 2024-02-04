@@ -1,3 +1,10 @@
+---
+title: "컴퓨터 네트워크 스터디 4주차"
+excerpt: "UDP, TCP"
+categories:
+  - computerNetwork
+---
+
 # 컴퓨터 네트워크 스터디 4주차
 
 # UDP
