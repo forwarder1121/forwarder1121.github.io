@@ -1,37 +1,39 @@
 # main links
 main:
-  - title: "Home"
-    url: https://forwarder1121.github.io/
-  - title: "GitHub"
-    url: https://github.com/forwarder1121
+    - title: "Home"
+      url: https://forwarder1121.github.io/
+    - title: "GitHub"
+      url: https://github.com/forwarder1121
 
-  # - title: "Projects"
-  #   url: /projects/
+    # - title: "Projects"
+    #   url: /projects/
 
-  # - title: "Categories"
-  #   url: /categories/
+    # - title: "Categories"
+    #   url: /categories/
 
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
-  - title: "Data Structure"
-    url: /categories/dataStructure/
-  - title: "Algorithm"
-    url: /categories/algorithm/
+    - title: "Data Structure"
+      url: /categories/dataStructure/
+    - title: "Algorithm"
+      url: /categories/algorithm/
 
-  - title: "백준"
-    url: /categories/백준/
-  - title: "Programmers"
-    url: /categories/programmers/
+    - title: "백준"
+      url: /categories/백준/
+    - title: "Programmers"
+      url: /categories/programmers/
 
-  - title: "웹 기초"
-    url: /categories/webBase/
-  - title: "React"
-    url: /categories/React/
-  - title: "Computer Network"
-    url: /categories/computerNetwork/
+    - title: "웹 기초"
+      url: /categories/webBase/
+    - title: "React"
+      url: /categories/React/
+    - title: "Computer Network"
+      url: /categories/computerNetwork/
 
-  - title: "Diary"
-    url: /categories/diary/
-  - title: "Book review"
-    url: /categories/bookReview/
+    - title: "Diary"
+      url: /categories/diary/
+    - title: "Book review"
+      url: /categories/bookReview/
+    - title: "Scrap"
+      url: /categories/scrap/
