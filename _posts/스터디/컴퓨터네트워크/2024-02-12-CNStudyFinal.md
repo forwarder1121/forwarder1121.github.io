@@ -1,8 +1,8 @@
 ---
 title: "컴퓨터 네트워크 스터디 최종 후기"
-excerpt: "5주간에 걸친 모의 면접 스터디를 마치며..."
+excerpt: "5주간에 걸친 모의 면접 스터디를 마치며...."
 categories:
-  - computerNetwork
+    - computerNetwork
 ---
 
 [JSCODE 모의 면접 컴퓨터 네트워크 스터디 5기 종료]
