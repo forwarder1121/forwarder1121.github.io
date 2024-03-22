@@ -3,23 +3,13 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+string str;
+int cnt[26];
 int main(){
-
-    //input
-    string str;
     cin>>str;
-    vector<int> v(26);
-    for(int i=0;i<26;i++){
-        char check='a'+i;
-        for(int j=0;j<str.length();j++){
-            if(str[j]==check) v[i]++;
-        }
+    for(char a:str){
+        cnt[a-'a']++;
     }
-
-    for(int i:v){
-        cout<<i<<" ";
-    }
-    
-
+    for(int i:cnt) cout<<i<<" ";
     return 0;
 }
