@@ -18,7 +18,8 @@ categories:
       url: /categories/dataStructure/
     - title: "Algorithm"
       url: /categories/algorithm/
-
+    - title: "NLP"
+      url: /categories/NLP/
     - title: "백준"
       url: /categories/백준/
     - title: "Programmers"
