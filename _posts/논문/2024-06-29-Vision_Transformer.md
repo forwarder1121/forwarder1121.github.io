@@ -7,7 +7,7 @@ categories:
 
 ---
 
-## Abstract
+# 0. Abstract
 
 NLP에서 Transformer 아키텍쳐는 표준이 되었지만, CV에서는 그 사용이 제한되어 왔다.
 
@@ -19,7 +19,7 @@ NLP에서 Transformer 아키텍쳐는 표준이 되었지만, CV에서는 그 �
 
 ---
 
-## Introduction
+# 1. Introduction
 
 ![transformer ANN ...](https://i.namu.wiki/i/tKMUf8ewTCZJETaAQWZplCPznZKid0xQvj8kjvOGDNyXgZ3o0aZigo8-enWBDmi_QJDDys3bTaBTecixDaPHA9zvJ5yJo7HqAFhOoijoiz0q0cHzhrNRXjoUUFFPWC_hUpw8gnaNA7VaRgo3Ld7gPURmcC0_WPwei-a2yyiWppQ.webp)
 
@@ -35,7 +35,7 @@ Self-Attention을 기반으로 하는 Transformer는 NLP에서 가장 standard�
 
 ---
 
-## Related Work
+# 2. Related Work
 
 기계 번역을 수행하기 위해 개발된 Transformer는 NLP에서 SORA의 성능을 거두었다. 이는 대규모 말뭉치를 학습하여 finetunning하는 방식으로 이루어지는데, BERT와 GPT가 그 대표적인 예이다.
 
@@ -49,10 +49,15 @@ ViT는 대규모 데이터셋을 사용함으로써 SOTA의 성능을 거두었�
 
 ---
 
-## Method
+# 3. Method
 
 ![image-20240629220626901](/Users/forwarder1121/Library/Application Support/typora-user-images/image-20240629220626901.png)
 
-ViT는 확장가능한 NLP transformer의 아키텍쳐와 그 효율적인 구현을 위해 기존 Transformer의 구조를 최대한 그대로 사용하였다. 위 사진을 보면 Transformer의 Encoder 부분을 그대로 가져온 것을 볼 수 있다. 이는 Transformer의 Encoder를 사용하는 LLM인 BERT와 유사하다.
+ViT는 확장가능한 NLP transformer의 아키텍쳐와 그 효율적인 구현을 위해 기존 Transformer의 구조를 최대한 그대로 사용하였다. 위 사진을 보면 Transformer의 Encoder 부분을 그대로 가져온 것을 볼 수 있다. 이는 Transformer의 Encoder를 사용하는 LLM인 BERT와 유사하다. 아래와 사진과 비교해보도록 하자.
 
 ![img](https://miro.medium.com/v2/resize:fit:700/1*Qww2aaIdqrWVeNmo3AS0ZQ.png)
+
+
+
+## 3.1 Vision Transformer(ViT)
+
