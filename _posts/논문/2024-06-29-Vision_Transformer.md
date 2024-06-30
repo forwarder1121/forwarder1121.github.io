@@ -140,3 +140,52 @@ pre-traning때보다 fine-tuning때 고해상도 이미지를 입력으로 주�
 
 # 4. Experiments
 
+
+
+구글 팀은 ResNet, ViT, hybrid 모델을 비교하는 실험을 진행하였다. 다양한 크기의 데이터 셋에서 pre-training을 진행하고, 여러 벤치마크 task에 대해 그 성능을 비교하였다. 결과적으로 ViT가 적은 pre-training cost를 가지고 대부분의 task에서 SOTA의 성능을 거두었다. self-supervision 또한 가능한 ViT에 대해 소개하며 ViT의 미래지향성에 대해 논한다.
+
+
+
+## 4.1 Setup
+
+
+
+**Datasets**
+
+ViT는 ImageNet-1k, ImageNet-21K, JFT와 같은 데이터셋으로 pre-training 된 후 다양한 downstream task(ReaL labels, CIFAR-10/100, Oxford-IIIT Pets, Oxford Flowers-102, VTAB)에 fine-tuning 되었다.
+
+
+
+**Model Variants**
+
+3개의 크기를 가진 ViT로 실험을 진행하였으며 BERT의 "Base","Large"를 그대로 가져온 뒤, "Huge"라는 것은 ViT에서 추가된 model size이다.
+
+![img](https://velog.velcdn.com/images/kbm970709/post/08ba0eef-05af-4816-9c36-ea31673c1da7/image.png)
+
+
+
+이러한 ViT와 대조군 2개를 설정하였는데,
+
+CNN 기반의 ResNet(BiT)와 CNN의 feature map을 input으로 받는 hybrid model이 그 대조군들이다.
+
+
+
+**Training & Fine-tuning**
+
+모든 모델을 weigh decay 0.1로 둔 Adam을 사용하여 pre-training을 진행하였다. 그후 fine-tuning은 momentum 기반의 SGD를 사용하였다.
+
+
+
+**Metrics**
+
+downstream 데이터셋에서 few-shot, fine-tuning accuracy를 사용한다.
+
+few-shot accuracy : Training dataset에 없는 클래스를 맞추는 정확도
+
+fine-tuning accuracy : fine-tuning 이후의 정확도
+
+
+
+
+
+## 4.2 Comparison to state of the art
