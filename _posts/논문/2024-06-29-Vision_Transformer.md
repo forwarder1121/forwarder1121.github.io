@@ -37,7 +37,7 @@ Self-Attention을 기반으로 하는 Transformer는 NLP에서 가장 standard�
 
 # 2. Related Work
 
-기계 번역을 수행하기 위해 개발된 Transformer는 NLP에서 SORA의 성능을 거두었다. 이는 대규모 말뭉치를 학습하여 finetunning하는 방식으로 이루어지는데, BERT와 GPT가 그 대표적인 예이다.
+기계 번역을 수행하기 위해 개발된 Transformer는 NLP에서 SOTA의 성능을 거두었다. 이는 대규모 말뭉치를 학습하여 finetunning하는 방식으로 이루어지는데, BERT와 GPT가 그 대표적인 예이다.
 
 이 Transformer의 self-attention을 이미지에 적용하기 위해서 가장 쉬운 방법은 각 픽셀마다 self-attention을 나머지 모든 픽셀에 적용하는 것인데, 이는 O(n^2)이므로 현실적이지 않다. 따라서 self-attetention을 인접 픽셀들에만 적용, 근사 사용, 가변 block으로 나눠어 적용, 개별 축에 대해 적용하는 방식들이 연구되어 왔지만 이들을 실제 HW 구현하기에는 많은 엔지니어링이 필요하다는 단점이 존재한다.
 
@@ -189,3 +189,83 @@ fine-tuning accuracy : fine-tuning 이후의 정확도
 
 
 ## 4.2 Comparison to state of the art
+
+ViT를 SOTA의 성능을 가진 CNN 계열의 BiT(ResNet), Nosiy Student와 비교한다. 모두 TPU-v3로 훈련되었다.
+
+![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/650e09cb-bca3-45cf-901a-32ff0b10e1da)
+
+위 표를 보면 ViT가 기존 SOTA인 BiT, Noisy student보다 높은 정확도를 보일 뿐 아니라, 더 적은 pre-training cost가 드는 것을 알 수 있다.
+
+![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/632a5340-296e-48f9-8e4d-5600c92d997b)
+
+VTAB 데이터셋에 따른 정확도를 그룹화하여 나타내어도, ViT가 기존 SOTA 모델보다 우수한 성능을 보임을 확인할 수 있다.
+
+## 4.3 Pre-training data requirements
+
+> ViT는 CNN보다 inductive bias가 적기 때문에 충분히 큰 크기의 데이터셋을 필요로 한다. 
+>
+> 그러나, 얼마나 커야하는가?
+
+이에 대한 연구로 크기가 다른 데이터셋에서 학습을 진행하여 비교하고, 같은 데이터셋에서 samples 수를 변화해가며 실험을 진행하였다.
+
+![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/ed582028-cedd-4c54-bf03-ab05d4f1f644)
+
+위 두 실험을 통하여 ViT는 JFT-300M과 같이 크기가 매우 클 경우에 BiT를 능가하고, 데이터셋의 크기가 작을 경우에는 inductive bias가 높은 CNN 기반 모델이 좋은 성능을 보이는 것을 알 수 있다.
+
+
+
+## 4.4 Scaling study
+
+모델의 training cost 대비 transfer accurancy를 비교하기 위한 실험이다.
+
+![image-20240630231439028](../../../../Library/Application Support/typora-user-images/image-20240630231439028.png)
+
+이 실험을 통하여 3가지 결론을 얻을 수 있다.
+
+1. ViT는 ResNet보다 동일 pre-training compute 에서 높은 성능을 보인다.
+2. ViT은 Hybrid 보다도 computer가 커짐 따라 높은 성능을 가진다.
+3. ViT 성능은 위 실험에서 정체되지 않았으므로 더 큰 compute에서도 가능성 있는 모델이다.
+
+
+
+
+
+## 4.5 Inspecting Vision Transformer
+
+ViT의 내부 표현 방식을 살펴본다.
+
+![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/b0c8cfe0-2beb-43de-b145-a7c6fd06b305)
+
+왼쪽 그림은 linear projection의 principal components를 분석한 사진이다. 이를 통하여 CNN의 fiter와 유사한 기능을 가짐을 알 수 있다.
+
+가운데 그림은 position embedding을 나타낸다. 가까이 위치한 패치이면, 그에 해당하는 position embedding도 유사하다.
+
+세번째 그림은 ViT의 일부 Head는 낮은 Network depth에서도 큰 영역(Mean attention distance가 큼)을 attention함을 보여줌으로써, ViT가 모델이 초반 layer에서도 이미지 전체의 정보를 통합하여 사용함을 알 수 있다.
+
+![img](https://velog.velcdn.com/images/kbm970709/post/15c556e7-188e-4984-a179-7feeb8b1668c/image.png)
+
+또한 ViT가 attention을 수행하는 만큼, 분류를 위하여 의미적으로 어느 영역에 집중하는지도 시각적으로 위 사진처럼 확인할 수 있다.
+
+
+
+## 4.6 Self-supervision
+
+Transformer가 NLP에 뛰어난 성능을 보이는 것은 확장성 뿐 아니라 self-supervised pre-training에서 기인한다.
+
+BERT의 masked 토큰을 사용한 self-supervised pre-training을 모방하여 masked patch prediction을 수행한 결과 supervised pre-training 대비 4% 낮은 성능을 보이지만 향후 더 연구 가치가 있음을 시사한다.
+
+
+
+---
+
+
+
+# 5. Conclusion
+
+ViT는 기존 접근방식들과 다르게, image-specific inductive biases를 딱히 도입하지 않았다. 대신 이미지를 patch로 나눈후 Transformer Encoding 기반의 NLP 모델에서처럼 입력을 줌으로써 확장 가능성을 확보하고 SOTA 성능을 달성할 수 있었다.
+
+그리고 도전 과제가 3가지 제시된다.
+
+1. ViT를 다른 CV task에 적용
+2. self-supervised learning
+3. ViT를 더 크게 확장하여 성능 개선
