@@ -1,4 +1,6 @@
 ---
+title: "[ 논문 리뷰 ] AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE"
+excerpt: "Vision Transformer"
 categories:
     - Paper
 ---
@@ -57,17 +59,11 @@ ViT는 확장가능한 NLP transformer의 아키텍쳐와 그 효율적인 구�
 
 ![img](https://miro.medium.com/v2/resize:fit:700/1*Qww2aaIdqrWVeNmo3AS0ZQ.png)
 
-
-
 ## 3.1 Vision Transformer(ViT)
-
-
 
 Transformer는 1차원 sequence를 입력으로 받기 때문에, 2차원인 이미지를 다루기 위해서 이미지를 1차원으로 변환시켜야 한다.
 
 x를 x_p로 재구성하는 수식은 아래에 나타나있다.
-
-
 
 $$
 x \in \mathbb{R}^{H \times W \times C}
@@ -77,38 +73,22 @@ $$
 x_p \in \mathbb{R}^{N \times (P^2 \cdot C)}
 $$
 
-- H, W : 원본 이미지의 해상도
-- C : 채널 수
-- P, P : 각 이미지 패치의 해상도
--  N : 생성된 패치의 수, Transformer 의 입력 시퀀스 길이
-
-
-
-
-
-
-
-
+-   H, W : 원본 이미지의 해상도
+-   C : 채널 수
+-   P, P : 각 이미지 패치의 해상도
+-   N : 생성된 패치의 수, Transformer 의 입력 시퀀스 길이
 
 $$
 z_0 = [x_{\text{class}}; x_1^p E; x_2^p E; \cdots; x_N^p E] + E_{\text{pos}}
 $$
 
-
-
-
-
 Transformer는 모든 레이어에서의 입력이 D차원 벡터로 통일함으로 이를 위해 위에서 변환한 x_p 행렬을 다시 Embedding 행렬인 E와 행렬곱하여 D차원 sequence로 만든다.
 
 그리고 BERT에서의 분류를 위한 [class] 토큰과 유사하게 ViT도 학습 가능한 임베딩을 sequence 앞에 추가한다. 이 토큰의 은닉 상태는 이미지 표현으로 사용되며 MLP 분류 헤드가 이를 이용하여 이미지 분류에 사용한다. 그리고 Positional Embedding인 E_pos 행렬을 더한다.
 
-
-
 그리고 이렇게 구성된 Embedding vecter의 sequence인 ViT의 입력으로 사용되며 Multiheaded Self-Attention(MSA) layer와 Multi-Layer Perceptron(MLP) layer를 번걸아가며 적용되며 중간에 계속 Layer Normalization(LN)과 residual connection이 이루어진다.
 
 최종 출력결과인 [class] 토큰의 은닉상태를 비선형 활성화 함수를 사용하는 MLP layer가 처리한다.
-
-
 
 아래 수식을 ViT의 아키텍쳐 그림과 비교하며 따라가보면 이해가 된다.
 
@@ -116,15 +96,9 @@ Transformer는 모든 레이어에서의 입력이 D차원 벡터로 통일함�
 
 ![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/53372a35-c8b1-4287-a219-2f84ae22d9bc)
 
-
-
-
-
 **Inductive bias & Hybrid Architecture**
 
 CNN의 locality, two-dimensional neighborhood structure, translation equivariance 특성은 self-attention을 주된 매커니즘으로 사용하는 Transformer에는 제한적으로 나타난다. 따라서 ViT에 CNN의 inductive bias를 주입하기 위하여 CNN의 feature map을 식(3)의 x_p로 사용하는 hybrid 아키텍쳐가 소개된다.
-
-
 
 ## 3.2 Fine-Tuning and Higher Resolution
 
@@ -132,29 +106,17 @@ ViT는 NLP의 Transformer와 동일하게 대규모 데이터셋에 대해 pre-t
 
 pre-traning때보다 fine-tuning때 고해상도 이미지를 입력으로 주는게 도움이 되며, 이때 고해상도 이미지는 patch-size가 동일하기 때문에 더 긴 sequence를 가지게 될 것이다. ViT는 임의 길이의 sequence를 처리할 수 있기 때문에 HW가 허락한다면 얼마든지 처리할 수 있으며, position embedding을 보간법을 통해 크기를 적절히 설정하여 더함으로써 고해상도 이미지에서도 inductive bias를 잃지 않게 하면 된다.
 
-
-
 ---
-
-
 
 # 4. Experiments
 
-
-
 구글 팀은 ResNet, ViT, hybrid 모델을 비교하는 실험을 진행하였다. 다양한 크기의 데이터 셋에서 pre-training을 진행하고, 여러 벤치마크 task에 대해 그 성능을 비교하였다. 결과적으로 ViT가 적은 pre-training cost를 가지고 대부분의 task에서 SOTA의 성능을 거두었다. self-supervision 또한 가능한 ViT에 대해 소개하며 ViT의 미래지향성에 대해 논한다.
 
-
-
 ## 4.1 Setup
-
-
 
 **Datasets**
 
 ViT는 ImageNet-1k, ImageNet-21K, JFT와 같은 데이터셋으로 pre-training 된 후 다양한 downstream task(ReaL labels, CIFAR-10/100, Oxford-IIIT Pets, Oxford Flowers-102, VTAB)에 fine-tuning 되었다.
-
-
 
 **Model Variants**
 
@@ -162,19 +124,13 @@ ViT는 ImageNet-1k, ImageNet-21K, JFT와 같은 데이터셋으로 pre-training 
 
 ![img](https://velog.velcdn.com/images/kbm970709/post/08ba0eef-05af-4816-9c36-ea31673c1da7/image.png)
 
-
-
 이러한 ViT와 대조군 2개를 설정하였는데,
 
 CNN 기반의 ResNet(BiT)와 CNN의 feature map을 input으로 받는 hybrid model이 그 대조군들이다.
 
-
-
 **Training & Fine-tuning**
 
 모든 모델을 weigh decay 0.1로 둔 Adam을 사용하여 pre-training을 진행하였다. 그후 fine-tuning은 momentum 기반의 SGD를 사용하였다.
-
-
 
 **Metrics**
 
@@ -183,10 +139,6 @@ downstream 데이터셋에서 few-shot, fine-tuning accuracy를 사용한다.
 few-shot accuracy : Training dataset에 없는 클래스를 맞추는 정확도
 
 fine-tuning accuracy : fine-tuning 이후의 정확도
-
-
-
-
 
 ## 4.2 Comparison to state of the art
 
@@ -202,7 +154,7 @@ VTAB 데이터셋에 따른 정확도를 그룹화하여 나타내어도, ViT가
 
 ## 4.3 Pre-training data requirements
 
-> ViT는 CNN보다 inductive bias가 적기 때문에 충분히 큰 크기의 데이터셋을 필요로 한다. 
+> ViT는 CNN보다 inductive bias가 적기 때문에 충분히 큰 크기의 데이터셋을 필요로 한다.
 >
 > 그러나, 얼마나 커야하는가?
 
@@ -211,8 +163,6 @@ VTAB 데이터셋에 따른 정확도를 그룹화하여 나타내어도, ViT가
 ![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/ed582028-cedd-4c54-bf03-ab05d4f1f644)
 
 위 두 실험을 통하여 ViT는 JFT-300M과 같이 크기가 매우 클 경우에 BiT를 능가하고, 데이터셋의 크기가 작을 경우에는 inductive bias가 높은 CNN 기반 모델이 좋은 성능을 보이는 것을 알 수 있다.
-
-
 
 ## 4.4 Scaling study
 
@@ -225,10 +175,6 @@ VTAB 데이터셋에 따른 정확도를 그룹화하여 나타내어도, ViT가
 1. ViT는 ResNet보다 동일 pre-training compute 에서 높은 성능을 보인다.
 2. ViT은 Hybrid 보다도 computer가 커짐 따라 높은 성능을 가진다.
 3. ViT 성능은 위 실험에서 정체되지 않았으므로 더 큰 compute에서도 가능성 있는 모델이다.
-
-
-
-
 
 ## 4.5 Inspecting Vision Transformer
 
@@ -246,19 +192,13 @@ ViT의 내부 표현 방식을 살펴본다.
 
 또한 ViT가 attention을 수행하는 만큼, 분류를 위하여 의미적으로 어느 영역에 집중하는지도 시각적으로 위 사진처럼 확인할 수 있다.
 
-
-
 ## 4.6 Self-supervision
 
 Transformer가 NLP에 뛰어난 성능을 보이는 것은 확장성 뿐 아니라 self-supervised pre-training에서 기인한다.
 
 BERT의 masked 토큰을 사용한 self-supervised pre-training을 모방하여 masked patch prediction을 수행한 결과 supervised pre-training 대비 4% 낮은 성능을 보이지만 향후 더 연구 가치가 있음을 시사한다.
 
-
-
 ---
-
-
 
 # 5. Conclusion
 
