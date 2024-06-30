@@ -51,7 +51,7 @@ ViT는 대규모 데이터셋을 사용함으로써 SOTA의 성능을 거두었�
 
 # 3. Method
 
-![image-20240629220626901](/Users/forwarder1121/Library/Application Support/typora-user-images/image-20240629220626901.png)
+![drawing](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/vit_architecture.jpg)
 
 ViT는 확장가능한 NLP transformer의 아키텍쳐와 그 효율적인 구현을 위해 기존 Transformer의 구조를 최대한 그대로 사용하였다. 위 사진을 보면 Transformer의 Encoder 부분을 그대로 가져온 것을 볼 수 있다. 이는 Transformer의 Encoder를 사용하는 LLM인 BERT와 유사하다. 아래와 사진과 비교해보도록 하자.
 
@@ -60,4 +60,83 @@ ViT는 확장가능한 NLP transformer의 아키텍쳐와 그 효율적인 구�
 
 
 ## 3.1 Vision Transformer(ViT)
+
+
+
+Transformer는 1차원 sequence를 입력으로 받기 때문에, 2차원인 이미지를 다루기 위해서 이미지를 1차원으로 변환시켜야 한다.
+
+x를 x_p로 재구성하는 수식은 아래에 나타나있다.
+
+
+
+$$
+x \in \mathbb{R}^{H \times W \times C}
+$$
+
+$$
+x_p \in \mathbb{R}^{N \times (P^2 \cdot C)}
+$$
+
+- H, W : 원본 이미지의 해상도
+- C : 채널 수
+- P, P : 각 이미지 패치의 해상도
+-  N : 생성된 패치의 수, Transformer 의 입력 시퀀스 길이
+
+
+
+
+
+
+
+
+
+$$
+z_0 = [x_{\text{class}}; x_1^p E; x_2^p E; \cdots; x_N^p E] + E_{\text{pos}}
+$$
+
+
+
+
+
+Transformer는 모든 레이어에서의 입력이 D차원 벡터로 통일함으로 이를 위해 위에서 변환한 x_p 행렬을 다시 Embedding 행렬인 E와 행렬곱하여 D차원 sequence로 만든다.
+
+그리고 BERT에서의 분류를 위한 [class] 토큰과 유사하게 ViT도 학습 가능한 임베딩을 sequence 앞에 추가한다. 이 토큰의 은닉 상태는 이미지 표현으로 사용되며 MLP 분류 헤드가 이를 이용하여 이미지 분류에 사용한다. 그리고 Positional Embedding인 E_pos 행렬을 더한다.
+
+
+
+그리고 이렇게 구성된 Embedding vecter의 sequence인 ViT의 입력으로 사용되며 Multiheaded Self-Attention(MSA) layer와 Multi-Layer Perceptron(MLP) layer를 번걸아가며 적용되며 중간에 계속 Layer Normalization(LN)과 residual connection이 이루어진다.
+
+최종 출력결과인 [class] 토큰의 은닉상태를 비선형 활성화 함수를 사용하는 MLP layer가 처리한다.
+
+
+
+아래 수식을 ViT의 아키텍쳐 그림과 비교하며 따라가보면 이해가 된다.
+
+![img](https://velog.velcdn.com/images/kbm970709/post/5ea4ad10-f67b-465a-a562-09d81361e1b8/image.png)
+
+![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/53372a35-c8b1-4287-a219-2f84ae22d9bc)
+
+
+
+
+
+**Inductive bias & Hybrid Architecture**
+
+CNN의 locality, two-dimensional neighborhood structure, translation equivariance 특성은 self-attention을 주된 매커니즘으로 사용하는 Transformer에는 제한적으로 나타난다. 따라서 ViT에 CNN의 inductive bias를 주입하기 위하여 CNN의 feature map을 식(3)의 x_p로 사용하는 hybrid 아키텍쳐가 소개된다.
+
+
+
+## 3.2 Fine-Tuning and Higher Resolution
+
+ViT는 NLP의 Transformer와 동일하게 대규모 데이터셋에 대해 pre-train을 수행하고 downstream task에 fine-tuning을 진행한다. fine-tuning 시에는 pre-training 때의 prediction head(MLP)를 제거하고 D x K feedforward layer를 연결한다. 여기서 D는 위와 마찬가지로 Transformer내의 입출력 벡터의 차원, K는 downstream class 수이다.
+
+pre-traning때보다 fine-tuning때 고해상도 이미지를 입력으로 주는게 도움이 되며, 이때 고해상도 이미지는 patch-size가 동일하기 때문에 더 긴 sequence를 가지게 될 것이다. ViT는 임의 길이의 sequence를 처리할 수 있기 때문에 HW가 허락한다면 얼마든지 처리할 수 있으며, position embedding을 보간법을 통해 크기를 적절히 설정하여 더함으로써 고해상도 이미지에서도 inductive bias를 잃지 않게 하면 된다.
+
+
+
+---
+
+
+
+# 4. Experiments
 
