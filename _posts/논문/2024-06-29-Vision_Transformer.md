@@ -5,7 +5,13 @@ categories:
     - Paper
 ---
 
-# [ 논문 리뷰 ] AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE
+
+
+논문의 전문은 [여기](https://arxiv.org/pdf/2010.11929)에서 확인 가능하다.
+
+논문 리뷰 PPT는 [여기](https://www.miricanvas.com/v/13ekiba)서 확인할 수 있다.
+
+
 
 ---
 
@@ -168,7 +174,7 @@ VTAB 데이터셋에 따른 정확도를 그룹화하여 나타내어도, ViT가
 
 모델의 training cost 대비 transfer accurancy를 비교하기 위한 실험이다.
 
-![image-20240630231439028](../../../../Library/Application Support/typora-user-images/image-20240630231439028.png)
+![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/4916bac9-d03a-4deb-a8da-052e0ac6c3b6)
 
 이 실험을 통하여 3가지 결론을 얻을 수 있다.
 
