@@ -66,8 +66,51 @@ CNN layer를 통과한 후에는 3개의 [Fully-Connected(FC) layer](https://dsb
 
 ![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/eb50ce9e-8def-458b-87bb-73814c96c63f)
 
-A~E 모델이 설정되었는데, 이는 "depth"만 차이를 둔 모델이고, 11개의 layer인 A부터 시작하여 19개의 layer를 가진 E순으로 점점 더 층이 깊어지는 모델이다. CNN layer의 parmeter는 "conv <receptive field size>-<number of channels>"로 기술되어 있다. 예를 들어, conv3-512는 3x3 receptive field를 가지며 512 channels를 가진 CNN layer를 나타낸다. channels은 max pooling layer를 지날때마다 2배씩 커진다.
+A~E 모델이 설정되었는데, 이는 "depth"만 차이를 둔 모델이고, 11개의 layer인 A부터 시작하여 19개의 layer를 가진 E순으로 점점 더 층이 깊어지는 모델이다. CNN layer의 parmeter는 "conv <receptive field size>-<number of channels>"로 기술되어 있다. 예를 들어, conv3-512는 3x3 receptive field를 가지며 512 channels를 가진 CNN layer를 나타낸다. channels은 max pooling layer를 지날때마다 2배씩 크게 설계하였다.
 
 ![image](https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/c2758610-f853-44b1-8f54-6d764883e4b4)
 
 위 표는 parameter의 개수를 나타내는데, 더 깊은 layer를 가짐에도 불구하고 더 큰 CNN layer와 recptive fields를 가진 다른 모델의 parameter(144M) 보다 크기 않다는 것을 나타냄으로써 경제성이 있는 모델임을 보이고 있다.
+
+
+
+
+
+## 2.3 Discussion
+
+
+
+Oxford는 매우 작은 3 x 3 receptive field를 모든 계층에 사용함으로써 높은 성능을 내었다.
+
+아래의 사진을 보며 receptive field를 살펴보자
+
+<img width="982" alt="image" src="https://github.com/forwarder1121/forwarder1121.github.io/assets/66872094/e58387c7-0975-4d8a-ac66-770ec351e429">
+
+
+
+Layer 2의 receptive fields는 5 x 5 크기를 가지고, Layer 3의 receptive fields는 7 x 7 크기를 가지는 것을 알 수 있다.
+
+> 3 x 3 receptive fields Layer 3개를 도입하여 최종 receptive field는 7 x 7 크기를 가짐을 확인할 수 있는데,
+>
+> 그냥 7 x 7 recptive fields Layer 1개를 쓰는 것과 차이점이 있을까?
+
+이 논문에서는 2가지 효과를 제시하며 3개의 Layer로 분해하는 것이 효과가 있다고 설명한다.
+
+1. **decision function을 더 강력하게 한다.**
+2. **parameter 개수를 감소시킨다.**
+
+예를 들어, 3 x 3 CNN 3계층이 C 채널 수를 가지고 있다 가정하자. 그러면 총 parameter 개수는 3(3c)^2=27c^2 이다.
+
+반면, 7 x 7 CNN 1계층은 동일 채널 수를 가정할 경우, 1(7c)^2=49c^2으로 위보다 81%나 많은 parameter를 가진다.
+
+
+
+또한 1 x 1 CNN는 단순 선형 변환을 시키는 것 이외에 ReLU 함수의 비선형성을 증가시킬 수 있음을 알 수 있다.
+
+
+
+---
+
+
+
+# 3. Classification Framework
