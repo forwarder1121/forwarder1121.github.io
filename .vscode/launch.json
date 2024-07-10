@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/forwarder1121/Desktop/blog/백준/Gold/1285. 동전 뒤집기",
+      "program": "/Users/forwarder1121/Desktop/blog/백준/Gold/1285. 동전 뒤집기/build/Debug/outDebug"
+    }
+  ]
+}
