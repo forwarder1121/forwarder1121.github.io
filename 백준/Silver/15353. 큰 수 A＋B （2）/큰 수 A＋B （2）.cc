@@ -1,28 +1,28 @@
 #include <iostream>
-#include <string>
-#include <algorithm>
+#include <stack>
 using namespace std;
 
-
+int n;
+int ret;
 int main(){
 
-    string A,B,ret;
-    cin>>A>>B;
-    int sum=0;
-    while(A.size()||B.size()||sum){
-        if(A.size()){
-            sum+=A.back()-'0';
-            A.pop_back();
+    cin>>n;
+    stack<int> stk;
+    for(int i=0;i<n;i++){
+        char tmp;
+        cin>>tmp;
+        if(tmp=='('){
+            stk.push(i);
         }
-        if(B.size()){
-            sum+=B.back()-'0';
-            B.pop_back();
+        else{
+            int front=stk.top();
+            stk.pop();
+            if(stk.empty()){
+                ret=max(ret,i-front+1);
+                stk.push(front);
+            }
         }
-        ret+=sum%10+'0';
-        sum/=10;
     }
-
-    reverse(ret.begin(),ret.end());
     cout<<ret<<endl;
     return 0;
 }
