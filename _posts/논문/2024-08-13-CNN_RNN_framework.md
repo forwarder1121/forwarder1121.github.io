@@ -1,8 +1,10 @@
 ---
-title: "[논문 리뷰] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows22"
-excerpt: "Swin2"
+title: "[논문 리뷰] CNN-RNN: A Unified Framework for Multi-label Image Classification"
+Learning by Masked Prediction of Hidden Units"
+excerpt: "CNN-RNN"
 categories:
     - Paper
+
 ---
 
 논문의 전문은 [여기](https://arxiv.org/pdf/1604.04573)에서 확인할 수 있다.
