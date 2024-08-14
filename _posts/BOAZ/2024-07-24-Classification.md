@@ -142,7 +142,5 @@ K-Nearest Neighbor. 말 그대로 주변 데이터를 파악하고 가장 가까
 여러가지 측도들이 존재한다.
 Acurracy, Precision, Recall, F1 Score 등이 존재
 
-# 모델 훈련
-
 
 
