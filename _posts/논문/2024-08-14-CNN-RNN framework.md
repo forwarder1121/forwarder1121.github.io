@@ -111,3 +111,156 @@ CNN-RNN framework는 이러한 걸 해결함
 
 
 # 3. Method
+
+
+
+
+
+아키텍쳐는 아래와 같다
+
+
+
+![image](https://github.com/user-attachments/assets/feb04b5d-fe3c-4c15-bc72-d12682957e85)
+
+
+
+
+
+크게 두 부분으로 이루어진 것을 확인할 수 있는데.
+
+
+
+CNN은 Image의 feature를 추출하고, RNN은 image/label의 feature와 라벨의 dependency를 추출한다.
+
+그리고 같은 공간에 사상되어서 내적 계산후에 최상위 라벨을 beam search로 찾는다.
+
+
+
+## Model
+
+
+
+라벨 k는 e_k로 원핫 인코딩 된다.
+
+그리고 이걸 Ui 행렬로 임베딩 시킨다.
+
+RNN은 이걸 받아서 라벨들의 dependency를 모델링한다.
+
+
+
+그리고 이 RNN의 결과와 CNN의 결과를 동일 선형공간에 사상시킨다.
+
+그리고 이걸 Ul행렬과 곱한뒤에 softmax를 이용하여 확률값으로 변환한다.
+
+
+
+쉽게 설명해서 위 그림의 보라색 부분이 학습이 진행되는 부분이다.
+
+
+
+## Inference
+
+저자들은 label들의 sequence를 **prediction-path**로 명명하였다.
+
+![image](https://github.com/user-attachments/assets/11f09b98-eee0-4b2c-b161-d019072a4d87)
+
+
+
+여기서 lk를 찾는 방법은 greedy approximation과 beam search가 있다.
+
+여기서 추론의 안정성을 위해 beam search를 사용한다.
+
+(greedy는 무식하게 가장 높은 확률의 라벨을 채택하기 때문에 불안정)
+
+
+
+## Training
+
+CNN 파트는 훈련시키지 않고 나머지 layer를 훈련시킴
+
+그리고 훈련 데이터의 라벨 순서는 빈도순으로 내림차순 정렬. 이 덕분에 감지하기 쉬운 object label을 찾고 이것이 다른 object 탐지에 도움을 줄 수 있음(label dependency)
+
+
+
+----
+
+
+
+# 4. Experiments
+
+다양한 multi-label classification에서 SOTA 달성
+
+
+
+---
+
+
+
+# 5. Conclusion and Future Work
+
+
+
+CNN-RNN은 multi-label image clasification을 위해 제안됨
+
+image/label embedding을 동일 공간으로 사상, label 끼리의 상관성을 고려 가능하고, SOTA 달성
+
+
+
+그러나 작은 object는 탐지 어렵다는 단점 존재 -> 추후 연구 필요
+
+
+
+내 생각에 CNN을 ViT로 바꾸면 개선되지 않을까.. 생각
+
+2016년 논문이라 이미 진행되었으려나
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
