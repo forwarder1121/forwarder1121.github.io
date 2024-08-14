@@ -8,7 +8,7 @@ categories:
 
 논문의 전문은 [여기](https://arxiv.org/pdf/1604.04573)에서 확인할 수 있다.
 
-
+이 논문의 실제 구현은 [여기](https://github.com/Lin-Zhipeng/CNN-RNN-A-Unified-Framework-for-Multi-label-Image-Classification)서 확인 가능하다.
 
 참고로 이 논문은 2016년에 발표되어 다소 옛날 기술을 많이 소개하긴 한다.
 
