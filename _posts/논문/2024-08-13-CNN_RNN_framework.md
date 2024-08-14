@@ -1,6 +1,5 @@
 ---
 title: "[논문 리뷰] CNN-RNN: A Unified Framework for Multi-label Image Classification"
-Learning by Masked Prediction of Hidden Units"
 excerpt: "CNN-RNN"
 categories:
     - Paper
