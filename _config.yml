@@ -190,6 +190,11 @@ lsi: false
 excerpt_separator: "\n\n"
 incremental: false
 
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  input: GFM
+
 # Markdown Processing
 kramdown:
   input: GFM
