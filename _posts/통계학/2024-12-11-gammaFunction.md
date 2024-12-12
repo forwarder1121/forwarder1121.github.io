@@ -10,4 +10,4 @@ categories:
 
 아래는 본 문서를 산출하기 위한 수작업 문서
 
-[IMG_3889.pdf](https://github.com/user-attachments/files/18113464/IMG_3889.pdf)
+![IMG_3888](https://github.com/user-attachments/assets/020f74a0-a902-4034-bb20-f5ce1708bfa9)
