@@ -1,5 +1,5 @@
 ---
-title: "[ 해석 ] 감마분포(팩토리얼)의 의미"
+title: "[ 해석 ] 감마함수(팩토리얼)의 의미"
 excerpt: "자연적 성장을 모델링하는 수학적 도구"
 categories:
     - statistics
