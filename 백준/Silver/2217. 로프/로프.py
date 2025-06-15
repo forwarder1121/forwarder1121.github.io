@@ -1,11 +1,11 @@
-n=int(input())
-ropes=[]; result=0
-for _ in range(n):
-    ropes.append(int(input()))
-ropes.sort() # O(nlogn)
+N=int(input())
 
-for idx in range(n): # O(n)
-    result=max(result,ropes[idx]*(n-idx))
+ropes=[int(input()) for _ in range(N)]
+ropes.sort()
 
-# total time complexity : O(nlogn)
-print(result)
+max_weight=0
+for i in range(N):
+    weight=ropes[i]*(N-i)
+    max_weight=max(max_weight,weight)
+
+print(max_weight)
