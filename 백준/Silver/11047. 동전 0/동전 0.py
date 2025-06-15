@@ -1,28 +1,13 @@
-n,k=map(int, input().split())
-coins=[]
+import sys
+input=sys.stdin.readline
+
+N,K=map(int,input().split())
+coins=[int(input()) for _ in range(N)]
 result=0
-idx=n-1
-for _ in range(n):
-    coins.append(int(input()))
 
-while True:
-    if k==0: break
-    if k>=coins[idx]:
-        numOfCoin=k//coins[idx]
-        k-=numOfCoin*coins[idx]
-        result+=numOfCoin
-    idx-=1
-
+for coin in reversed(coins):
+    if K>=coin:
+        result+=K//coin
+        K%=coin
+    
 print(result)
-
-# 10 4200
-# 1
-# 5
-# 10
-# 50
-# 100
-# 500
-# 1000
-# 5000
-# 10000
-# 50000
