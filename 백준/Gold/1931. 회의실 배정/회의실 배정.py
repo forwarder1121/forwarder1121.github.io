@@ -1,20 +1,16 @@
-import heapq
-#input
-pq=[]
+import sys
+input=sys.stdin.readline
+
 N=int(input())
-result=0
-for i in range(N):
-    start,end=tuple(map(int,input().split()))
-    heapq.heappush(pq,(end,start))
+meetings=[tuple(map(int,input().split())) for _ in range(N)]
 
-#logic
-time=0
-while pq:
-    end,start=heapq.heappop(pq)
-    if(start<time): continue
-    time=end
-    result+=1
+meetings.sort(key=lambda x:(x[1],x[0]))
 
-print(result)
+count=0
+current_time=0
 
-#time complexity : O(NlogN)
+for start,end in meetings:
+    if start>=current_time:
+        count+=1
+        current_time=end
+print(count)
