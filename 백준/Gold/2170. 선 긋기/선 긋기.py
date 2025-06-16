@@ -13,6 +13,6 @@ for s,e in lines[1:]:
     else:
         total+=end-start
         start,end=s,e
-total+=end-start
 
+total+=end-start
 print(total)
