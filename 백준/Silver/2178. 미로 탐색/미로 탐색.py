@@ -1,5 +1,5 @@
 import sys
-from collections import deque 
+from collections import deque
 input=sys.stdin.readline
 
 N,M=map(int,input().split())
@@ -12,15 +12,15 @@ def bfs(x,y):
     queue.append((x,y))
     visited[x][y]=True
     while queue:
-        c_x,c_y=queue.popleft()
+        cx,cy=queue.popleft()
         for i in range(4):
-            nx=c_x+dx[i]
-            ny=c_y+dy[i]
+            nx=cx+dx[i]
+            ny=cy+dy[i]
             if 0<=nx<N and 0<=ny<M:
-                if not visited[nx][ny] and graph[nx][ny]>0:
+                if not visited[nx][ny] and graph[nx][ny]==1:
                     queue.append((nx,ny))
                     visited[nx][ny]=True
-                    graph[nx][ny]=graph[c_x][c_y]+1
+                    graph[nx][ny]=graph[cx][cy]+1
                     
 
 bfs(0,0)
