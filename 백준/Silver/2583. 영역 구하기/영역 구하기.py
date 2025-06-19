@@ -5,14 +5,15 @@ input=sys.stdin.readline
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 results=[]
-count=0
+
 N,M,K=map(int,input().split())
 graph=[[True]*M for _ in range(N)]
 visited=[[False]*M for _ in range(N)]
+
 for _ in range(K):
-    ly,lx,ry,rx=map(int,input().split())
-    for i in range(lx,rx):
-        for j in range(ly,ry):
+    y1,x1,y2,x2=map(int,input().split())
+    for i in range(x1,x2):
+        for j in range(y1,y2):
             graph[i][j]=False
 
 
@@ -37,9 +38,8 @@ for i in range(N):
     for j in range(M):
         if not visited[i][j] and graph[i][j]==True:
             results.append(bfs(i,j))
-            count+=1
+            
 
 results.sort()
-print(count)
-for result in results:
-    print(result)
+print(len(results))
+print(*results)
