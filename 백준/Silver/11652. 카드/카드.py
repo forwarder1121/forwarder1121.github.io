@@ -1,15 +1,26 @@
 import sys
-from collections import Counter
 input=sys.stdin.readline
 
 N=int(input())
 numbers=[int(input()) for _ in range(N)]
+numbers.sort()
 
-counter=Counter(numbers)
-most_common_freq=counter.most_common()
+max_freq=1
+current_freq=1
+answer=numbers[0]
+current_num=numbers[0]
 
+for i in range(1,N):
+    if numbers[i]==current_num:
+        current_freq+=1
+    else:
+        if current_freq>max_freq:
+            max_freq=current_freq
+            answer=current_num
+        current_num=numbers[i]
+        current_freq=1
 
-max_freq = most_common_freq[0][1]
+if current_freq>max_freq:
+    answer=current_num
 
-candidates = [num for num, cnt in most_common_freq if cnt == max_freq]
-print(min(candidates))
+print(answer)
