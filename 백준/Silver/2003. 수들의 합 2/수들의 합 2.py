@@ -4,21 +4,22 @@ input=sys.stdin.readline
 N,M=map(int,input().split())
 numbers=list(map(int,input().split()))
 
-left=right=0
-current_sum=0
+left=right=total=0
 result=0
 
 while True:
-    if current_sum<M:
+    if total<M:
         if right==N:
             break
-        current_sum+=numbers[right]
+        total+=numbers[right]
         right+=1
-    else:
-        current_sum-=numbers[left]
+    elif total>M:
+        total-=numbers[left]
         left+=1
-    
-    if current_sum==M:
+    else:
         result+=1
+        total-=numbers[left]
+        left+=1
+
 
 print(result)
