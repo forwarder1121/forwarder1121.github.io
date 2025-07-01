@@ -1,28 +1,26 @@
-import sys
+import sys,math
 input=sys.stdin.readline
-
 N,S=map(int,input().split())
+
 numbers=list(map(int,input().split()))
 
-left=right=sum=0
-min_length=100000001
+# two pointers
+left=right=0
+curr_sum=0
+min_length=math.inf
 
-while left<N:
-    if sum<S: #expand
-        if right==N: 
+while(left<N):
+    # expand
+    if curr_sum<S:
+        if right==N:
             break
-        sum+=numbers[right]
+        curr_sum+=numbers[right]
         right+=1
-    elif sum>=S : #shrink
-        cur_length=right-left
-        min_length=min(cur_length,min_length)
-        sum-=numbers[left]
+
+    # shrink
+    else:
+        min_length=min(min_length,right-left)
+        curr_sum-=numbers[left]
         left+=1
-        
-        
-    
 
-if min_length==100000001:
-    min_length=0
-
-print(min_length)
+print(min_length if min_length!=math.inf else 0)
