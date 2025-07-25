@@ -43,7 +43,7 @@ def bfs(viruses):
                     queue.append((nx,ny))
                     left-=1
                     if left==0:
-                        return dist[nx][ny]
+                        return max(max(row) for row in dist)
     return math.inf
 
 answer=math.inf
