@@ -4,6 +4,7 @@ input=sys.stdin.readline
 
 N=int(input())
 commands=[input().split() for _ in range(N)]
+
 stack=deque()
 for command in commands:
     if command[0]=="push":
@@ -17,5 +18,3 @@ for command in commands:
     elif command[0]=="top":
         print(stack[-1] if stack else -1)
 
-        
-    
