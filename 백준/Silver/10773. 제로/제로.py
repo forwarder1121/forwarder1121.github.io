@@ -1,14 +1,13 @@
 import sys
-from collections import deque
 input=sys.stdin.readline
 
-N=int(input())
-commands=[int(input().strip()) for _ in range(N)]
-stack=deque()
-for command in commands:
-    if command==0:
+K=int(input())
+requests=[int(input()) for _ in range(K)]
+stack=[]
+for request in requests:
+    if request==0:
         stack.pop()
     else:
-        stack.append(command)
+        stack.append(request)
 
 print(sum(stack))
