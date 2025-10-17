@@ -1,18 +1,19 @@
 import sys
 input=sys.stdin.readline
 
-
+# input
 T=int(input())
+taget_numbers=[int(input()) for _ in range(T)]
+N=max(taget_numbers)
 
-cases=[int(input()) for _ in range(T)]
-N=max(cases)
 
-dp=[0]*(N+1)
-dp[1]=1
-dp[2]=2
-dp[3]=4
-for x in range(4, N+1):
-    dp[x]=dp[x-1]+dp[x-2]+dp[x-3]
+# DP
+dp=[0]*(N+1) # 1-based
+dp[1],dp[2],dp[3]=1,2,4
 
-for case in cases:
-    print(dp[case])
+for i in range(4,N+1):
+    dp[i]=dp[i-1]+dp[i-2]+dp[i-3]
+
+# result
+for target in taget_numbers:
+    print(dp[target]) 
