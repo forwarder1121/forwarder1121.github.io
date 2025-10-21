@@ -3,11 +3,16 @@ input=sys.stdin.readline
 
 N=int(input())
 
-dp=[0]*(N+2) # 1-based
+if N==1:
+    print(1)
+    sys.exit()
+
+# DP
+dp=[0]*(N+1) # 1-based
 dp[1]=1
 dp[2]=2
 
-for x in range(3,N+1):
-    dp[x]=(dp[x-1]+dp[x-2])%10007
+for i in range(3,N+1):
+    dp[i]=(dp[i-1]+dp[i-2])%10007
 
 print(dp[N])
