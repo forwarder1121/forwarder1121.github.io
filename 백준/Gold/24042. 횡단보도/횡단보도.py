@@ -4,35 +4,35 @@ input=sys.stdin.readline
 # input
 N,M=map(int,input().split())
 edges=[list(map(int,input().split())) for _ in range(M)]
-graph=[[] for _ in range(N+1)]
 
-# 0-based
-for i,(a,b) in enumerate(edges):
-    graph[a].append((b,i))
-    graph[b].append((a,i))
+graph=[[] for _ in range(N+1)] # 1-based
+for idx,(a,b) in enumerate(edges):
+    graph[a].append((b,idx))
+    graph[b].append((a,idx))
 
 start,end=1,N
 
 # dijkstra
 def dijkstra():
-    time=[math.inf]*(N+1) # 1-based
-    time[start]=0
+    dist=[math.inf]*(N+1)
+    dist[start]=0
 
     pq=[]
     heapq.heappush(pq,(0,start))
 
     while pq:
-        cur_time,cur_node=heapq.heappop(pq)
-        if cur_time!=time[cur_node]:
+        cur_dist,cur_node=heapq.heappop(pq)
+        if cur_dist!=dist[cur_node]:
             continue
-        mod=cur_time%M
-        for next_node, idx in graph[cur_node]:
+        for next_node,idx in graph[cur_node]:
+            mod=cur_dist%M
             wait=(idx-mod)%M
-            new_time=cur_time+wait+1
-            if new_time<time[next_node]:
-                time[next_node]=new_time
-                heapq.heappush(pq,(new_time,next_node))
+            new_dist=cur_dist+wait+1
+            if new_dist<dist[next_node]:
+                dist[next_node]=new_dist
+                heapq.heappush(pq,(new_dist,next_node))
 
-    return time[end]
-            
+    return dist[end]
+
+# logic
 print(dijkstra())
