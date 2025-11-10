@@ -1,14 +1,17 @@
 def solution(numbers, target):
     
-    def dfs(idx,cur_sum):
-        # base-condition
-        if idx==len(numbers):
-            return 1 if cur_sum==target else 0
+    # DFS -> depth, state(cur_num)
+    def dfs(depth,cur_num):
+        count=0
+        # base condition
+        if depth==len(numbers):
+            if cur_num==target:
+                return 1
+            return 0
         
-        plus=dfs(idx+1,cur_sum+numbers[idx])
-        minus=dfs(idx+1,cur_sum-numbers[idx])
-        
-        return plus+minus
-        
-    
+        # apply
+        count+=dfs(depth+1,cur_num+numbers[depth])
+        count+=dfs(depth+1,cur_num-numbers[depth])
+        return count
+   
     return dfs(0,0)
