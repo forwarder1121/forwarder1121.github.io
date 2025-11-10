@@ -1,26 +1,28 @@
-from collections import deque
-
+import math
 def solution(begin, target, words):
-    N=len(words)
-    visited=[False]*(N+1) # 1-based
-    
+    visited=[False]*(len(words))
     def one_diff(a,b)->bool:
-        diff=0
+        count=0
         for i in range(len(a)):
             if a[i]!=b[i]:
-                diff+=1
-        return True if diff==1 else False
+                count+=1
+        return count==1
     
-    queue=deque()
-    queue.append((begin,0)) 
-    
-    while queue:
-        cur,depth=queue.popleft()
-        if cur==target:
+    def dfs(state,depth)->int:
+        # base-condition
+        if state==target:
             return depth
-        for i in range(N):
-            if one_diff(cur,words[i]) and not visited[i]:
+        # apply
+        best=math.inf
+        for i in range(len(words)):
+            if one_diff(words[i],state) and not visited[i]:
                 visited[i]=True
-                queue.append((words[i],depth+1))
-            
-    return 0
+                cand=dfs(words[i],depth+1)
+                if cand<best:
+                    best=cand
+                visited[i]=False
+        return best
+        
+    answer=dfs(begin,0)
+    
+    return 0 if answer==math.inf else answer
