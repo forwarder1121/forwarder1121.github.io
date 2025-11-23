@@ -21,7 +21,7 @@ def solution(game_board, table):
         return sorted([(x-min_x,y-min_y) for x,y in block])
         
     def rotate(block):
-        rotated=[(y,-x) for x,y in block]
+        rotated=[(-y,x) for x,y in block]
         return normalize(rotated)
     
     N=len(game_board)
