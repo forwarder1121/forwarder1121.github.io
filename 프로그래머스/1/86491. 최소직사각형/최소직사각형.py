@@ -1,11 +1,10 @@
-import math
-def solution(cards):
-    
-    max_x,max_y=0,0
-    for x,y in cards:
-        if x<y:
-            x,y=y,x
-        max_x=max(max_x,x)
-        max_y=max(max_y,y)
-        
-    return max_x*max_y
+def solution(sizes):
+    max_w=0
+    max_h=0
+    for w,h in sizes:
+        if w<h:
+            w,h=h,w
+        max_w=max(max_w,w)
+        max_h=max(max_h,h)
+    answer = max_w*max_h
+    return answer
