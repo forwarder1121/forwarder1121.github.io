@@ -1,29 +1,23 @@
 from itertools import permutations
 
-def is_prime(n)->bool:
-    if n<2:
-        return False
-    for i in range(2,int(n**0.5)+1):
-        if n%i==0:
-            return False
-    return True
-
 def solution(numbers):
-    
     digits=list(numbers)
-    made_numbers=set()
-    
-    for r in range(1,len(digits)+1):
+    candidates=set()
+    for r in range(1,len(numbers)+1):
         for perm in permutations(digits,r):
-            num=int("".join(perm))
-            made_numbers.add(num)
-            
+            candidates.add(int("".join(perm)))
+    
     count=0
-    for num in made_numbers:
-        if is_prime(num):
+    for cand in candidates:
+        print(type(cand))
+        if is_prime(cand):
             count+=1
-            
     return count
 
-
-
+def is_prime(num)->bool:
+    if num<2:
+        return False
+    for i in range(2,int(num**0.5)+1):
+        if num%i==0:
+            return False
+    return True
