@@ -1,10 +1,9 @@
 def solution(sizes):
-    max_w=0
-    max_h=0
-    for w,h in sizes:
-        if w<h:
-            w,h=h,w
-        max_w=max(max_w,w)
-        max_h=max(max_h,h)
-    answer = max_w*max_h
+    max_x,max_y=0,0
+    for x,y in sizes:
+        if x<y:
+            x,y=y,x
+        max_x=max(max_x,x)
+        max_y=max(max_y,y)
+    answer=max_x*max_y
     return answer
