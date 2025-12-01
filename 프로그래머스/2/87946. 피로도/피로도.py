@@ -1,19 +1,17 @@
-def solution(k, dungeons):
+def solution(init_state, dungeons):
+    
     N=len(dungeons)
     visited=[False]*N
     
-    def backtracking(energy)->int:
-        max_count=0
+    def dfs(state,count)->int:  
+        best=count
         for i in range(N):
-            req,cost=dungeons[i]
-            if not visited[i] and energy>=req:
+            if not visited[i] and state>=dungeons[i][0]:
                 visited[i]=True
-                count=1+backtracking(energy-cost)
-                max_count=max(max_count,count)
+                best=max(best,dfs(state-dungeons[i][1],count+1))
                 visited[i]=False
-                
-        return max_count
-        
-    return  backtracking(k)
-
-
+        return best
+    
+    answer=dfs(init_state,0)
+    
+    return answer
