@@ -1,12 +1,15 @@
 def solution(prices):
     
-    answer=[]
-    for i in range(len(prices)):
-        count=0
-        for j in range(i+1,len(prices)):
-            count+=1
-            if prices[i]>prices[j]:
-                break
-        answer.append(count)
-        
+    N=len(prices)
+    answer=[0]*N
+    stack=[]
+    for i in range(N):
+        while stack and prices[stack[-1]]>prices[i]:
+            top_index=stack.pop()
+            answer[top_index]=i-top_index
+        stack.append(i)
+    while stack:
+        top_index=stack.pop()
+        answer[top_index]=N-top_index-1
+     
     return answer
