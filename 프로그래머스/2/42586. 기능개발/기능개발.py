@@ -1,18 +1,18 @@
-from math import ceil
+import math
 def solution(progresses, speeds):
-    requires_day=[]
-    for p,s in zip(progresses,speeds):
-        requires_day.append(ceil((100-p)/s))
     
-    queue=[] 
-    answer=[]
-   
-    for element in requires_day:
-        if not queue or element<=queue[0]:            
-            queue.append(element)
-        else:
-            answer.append(len(queue))
-            queue=[element]
-        
-    answer.append(len(queue))
+    N=len(progresses)
+    required_days=[]
+    for progress,speed in zip(progresses, speeds):
+        required_days.append(math.ceil((100-progress)/speed))
+    
+    print("required_days : ",required_days)
+    answer = []
+    stack=[]
+    for i in range(N):
+        while stack and stack[0]<required_days[i]:
+            answer.append(len(stack))
+            stack=[]
+        stack.append(required_days[i])
+    answer.append(len(stack))
     return answer
