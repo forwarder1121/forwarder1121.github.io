@@ -3,22 +3,22 @@ CONSTANT=1000000007
 def solution(M, N, puddles):
     
     # init
-    dp=[[0]*M for _ in range(N)]
+    dp=[[0]*N for _ in range(M)]
     dp[0][0]=1
     
     # DP
-    for i in range(N):
-        for j in range(M):
-            if i==0 and j==0:
+    for x in range(N):
+        for y in range(M):
+            if x==0 and y==0:
                 continue
-            elif [j+1,i+1] in puddles:
-                dp[i][j]=0
+            elif [y+1,x+1] in puddles:
+                dp[y][x]=0
             else:
-                if i==0:
-                    dp[i][j]=dp[i][j-1]
-                elif j==0:
-                    dp[i][j]=dp[i-1][j]
+                if y==0:
+                    dp[y][x]=dp[y][x-1]
+                elif x==0:
+                    dp[y][x]=dp[y-1][x]
                 else:
-                    dp[i][j]=(dp[i-1][j]+dp[i][j-1])%CONSTANT
+                    dp[y][x]=(dp[y-1][x]+dp[y][x-1])%CONSTANT
     print(dp)
-    return dp[N-1][M-1]
+    return dp[M-1][N-1]
