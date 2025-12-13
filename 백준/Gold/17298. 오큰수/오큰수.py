@@ -1,19 +1,19 @@
 import sys
 input=sys.stdin.readline
 
+# INPUT
 N=int(input())
-numbers=list(map(int,input().split()))
+array=list(map(int,input().split()))
 
+answer=[-1]*N
 stack=[]
-answer=[]
-for i in range(N-1,-1,-1):
-    curr_num=numbers[i]
-    while stack and curr_num>=stack[-1]:
-        stack.pop()
-    if stack:
-        answer.append(stack[-1])
-    else:
-        answer.append(-1)
-    stack.append(curr_num)
+for i in range(N):
+    while stack and array[stack[-1]]<array[i]:
+        decided_index=stack.pop()
+        answer[decided_index]=array[i]
+    stack.append(i)
 
-print(*reversed(answer))
+while stack:
+    answer[stack.pop()]=-1
+
+print(*answer)
