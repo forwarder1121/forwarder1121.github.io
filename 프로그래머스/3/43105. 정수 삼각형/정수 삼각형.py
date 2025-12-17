@@ -1,18 +1,19 @@
-from collections import defaultdict
 def solution(triangle):
     
-    # DP 0-based
+    # INIT
     N=len(triangle)
-    DP=[[0]*(level+1) for level in range(N)]
-    DP[0][0]=triangle[0][0]
+    dp=[[0]*level for level in range(1,N+1)] # 0-based
+    dp[0][0]=triangle[0][0]
     
-    for level in range(1,len(triangle)):
+    # DP
+    for level in range(1,N):
         for index in range(level+1):
             if index==0:
-                DP[level][index]=DP[level-1][index]+triangle[level][index]
+                dp[level][index]=dp[level-1][index]+triangle[level][index]
             elif index==level:
-                DP[level][index]=DP[level-1][index-1]+triangle[level][index]
+                dp[level][index]=dp[level-1][index-1]+triangle[level][index]
             else:
-                DP[level][index]=max(DP[level-1][index-1],DP[level-1][index])+triangle[level][index]
-                    
-    return max(DP[N-1])
+                dp[level][index]=max(dp[level-1][index-1],dp[level-1][index])+triangle[level][index]                
+    
+    answer = max(dp[N-1])
+    return answer
