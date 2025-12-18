@@ -1,17 +1,18 @@
+from collections import deque
 def solution(numbers, target):
-    
-    # DFS -> depth, state(cur_num)
-    def dfs(depth,cur_num):
+    N=len(numbers)
+    count=0
+    def dfs(state,level):
         count=0
-        # base condition
-        if depth==len(numbers):
-            if cur_num==target:
-                return 1
-            return 0
+        # base-condition
+        if level==N:
+            return 1 if state==target else 0
+        # do
+        count+=dfs(state+numbers[level],level+1)
+        count+=dfs(state-numbers[level],level+1)
+        # undo
         
-        # apply
-        count+=dfs(depth+1,cur_num+numbers[depth])
-        count+=dfs(depth+1,cur_num-numbers[depth])
         return count
-   
+    
+
     return dfs(0,0)
