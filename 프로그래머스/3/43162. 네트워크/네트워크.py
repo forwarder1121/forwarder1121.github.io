@@ -1,15 +1,18 @@
-# connected-component
-def solution(N, computers):
-    visited=[False]*N # 0-based
-    count=0
+def solution(N, edges):
+    
+    # INIT
+    visited=[False]*N
+    
     def dfs(u):
+        visited[u]=True
         for v in range(N):
-            if computers[u][v]==1 and not visited[v]:
-                visited[v]=True
+            if edges[u][v] and not visited[v]:
                 dfs(v)
-                
+    
+    count=0
     for i in range(N):
-        if visited[i]==False:
-            dfs(i)
+        if not visited[i]:
             count+=1
+            dfs(i)
+    
     return count
