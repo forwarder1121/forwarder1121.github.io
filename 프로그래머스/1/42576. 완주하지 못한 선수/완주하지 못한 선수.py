@@ -1,13 +1,12 @@
 from collections import defaultdict
-
 def solution(participant, completion):
-    
-    counter=defaultdict(int)
+    candidates=defaultdict(int)
     for p in participant:
-        counter[p]+=1
+        candidates[p]+=1
     for c in completion:
-        counter[c]-=1
+        candidates[c]-=1
     
-    for name,cnt in counter.items():
-        if cnt>0:
-            return name
+    for candidate in candidates:
+        if candidates[candidate]==1:
+            return candidate
+    
