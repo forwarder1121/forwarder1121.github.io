@@ -1,11 +1,8 @@
-from collections import defaultdict
 def solution(nums):
     N=len(nums)
-    counter=defaultdict(int)
+    kinds=set()
     for num in nums:
-        counter[num]+=1
+         kinds.add(num)
+    numOfKind=len(kinds)
     
-    answer=min(len(counter),N//2)
-    
-        
-    return answer
+    return min(numOfKind,N//2)
