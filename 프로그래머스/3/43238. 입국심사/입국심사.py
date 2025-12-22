@@ -1,25 +1,20 @@
-def solution(n, times):
+def solution(N, times):
+    left=1
+    right=max(times)*N
     
-    high=max(times)*n
-    low=1
-    answer=high
+    def can(time):
+        throughput=0
+        for t in times:
+            throughput+=time//t
+        return throughput>=N
     
-    def can(T)->bool:
-        total=0
-        for time in times:
-            total+=T//time
-            if total>=n:
-                return True
-        return False
-    
-    while low<=high:
-        mid=(low+high)//2
+    answer=0
+    while left<=right:
+        mid=(left+right)//2
         if can(mid):
-            high=mid-1
             answer=mid
+            right=mid-1            
         else:
-            low=mid+1
-    
-    
+            left=mid+1
     
     return answer
