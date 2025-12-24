@@ -1,13 +1,11 @@
+
 def solution(N, costs):
-    edges=[]    
+    edges=[]
     for a,b,cost in costs:
         edges.append((cost,a,b))
     edges.sort()
     
-    parent=[0]*N # 0-based
-    for i in range(N):
-        parent[i]=i
-    
+    parent=[i for i in range(N)] # 0-based
     def find_parent(x):
         if parent[x]!=x:
             parent[x]=find_parent(parent[x])
@@ -21,13 +19,11 @@ def solution(N, costs):
         else:
             parent[a]=b
     
-    answer = 0
+    answer=0
     for cost,a,b in edges:
         if find_parent(a)!=find_parent(b):
             union_parent(a,b)
             answer+=cost
-        
-        
-    
-    
     return answer
+        
+    
