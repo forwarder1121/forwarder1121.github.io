@@ -1,43 +1,42 @@
 import sys
 input=sys.stdin.readline
 
+N,M=map(int,input().split())
+cx,cy,d=map(int,input().split())
+maps=[list(map(int,input().split())) for _ in range(N)]
+visited=[[False]*M for _ in range(N)]
 dx=[-1,0,1,0]
 dy=[0,1,0,-1]
 
-N,M=map(int,input().split())
-cx,cy,cdirect=map(int,input().split())
-room=[list(map(int,input().split())) for _ in range(N)]
-
-
-count=0
-def is_near_clear(cx,cy):
+answer=0
+while True:
+    if not visited[cx][cy] and maps[cx][cy]==0:
+        visited[cx][cy]=True
+        answer+=1
+    flag=False
     for i in range(4):
         nx=cx+dx[i]
         ny=cy+dy[i]
         if 0<=nx<N and 0<=ny<M:
-            if room[nx][ny]==0:
-                return False
-    return True
-
-
-while True:
-    if room[cx][cy]==0:
-        room[cx][cy]=2
-        count+=1
-    if is_near_clear(cx,cy):
-        nx=cx-dx[cdirect]
-        ny=cy-dy[cdirect]
+            if not visited[nx][ny] and maps[nx][ny]==0:
+                flag=True
+                break
+    
+    if flag:
+        d=(d-1)%4
+        nx=cx+dx[d]
+        ny=cy+dy[d]
         if 0<=nx<N and 0<=ny<M:
-            if room[nx][ny]!=1:
+            if not visited[nx][ny] and maps[nx][ny]==0:
+                cx,cy=nx,ny
+    
+    else:
+        nx=cx-dx[d]
+        ny=cy-dy[d]
+        if 0<=nx<N and 0<=ny<M:
+            if maps[nx][ny]==0:
                 cx,cy=nx,ny
             else:
                 break
-    else:
-        cdirect=(cdirect-1)%4
-        nx=cx+dx[cdirect]
-        ny=cy+dy[cdirect]
-        if room[nx][ny]==0:
-            cx,cy=nx,ny
-        
 
-print(count)
+print(answer)
