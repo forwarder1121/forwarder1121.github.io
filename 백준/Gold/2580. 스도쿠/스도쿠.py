@@ -19,7 +19,7 @@ for x in range(9):
             col_check[y][board[x][y]]=True
             box_check[(x//3)*3+(y//3)][board[x][y]]=True
 
-def dfs(idx):
+def P(idx):
     # base-condition
     if idx==len(vacancies):
         return True
@@ -33,8 +33,8 @@ def dfs(idx):
             row_check[px][num]=True
             col_check[py][num]=True
             box_check[box_idx][num]=True
-            # bfs
-            if dfs(idx+1):
+            # dfs
+            if P(idx+1):
                 return True
             # undo
             board[px][py]=0
@@ -44,6 +44,6 @@ def dfs(idx):
             
     return False
 
-dfs(0)
+P(0)
 for row in range(9):
     print(*board[row])
