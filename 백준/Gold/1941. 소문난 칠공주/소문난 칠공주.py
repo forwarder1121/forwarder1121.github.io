@@ -17,6 +17,17 @@ def xy2num(x,y):
 def num2xy(num):
     return num//SIZE,num%SIZE
 
+def dfs(x,y,visited,numbers):
+    visited[x][y]=True
+    for i in range(4):
+        nx=x+dx[i]
+        ny=y+dy[i]
+        if 0<=nx<SIZE and 0<=ny<SIZE:
+            if not visited[nx][ny] and xy2num(nx,ny) in numbers:
+                dfs(nx,ny,visited,numbers)
+
+
+
 def ispossible(numbers):
     S=0
     for num in numbers:
@@ -26,28 +37,17 @@ def ispossible(numbers):
     if S<4:
         return False
     
-    # connected check
-    queue=deque()
-    queue.append(numbers[0])
+    # connected check by using DFS
     visited=[[False]*SIZE for _ in range(SIZE)]
-    while queue:        
-        cx,cy=num2xy(queue.popleft())
-        visited[cx][cy]=True
-        for i in range(4):
-            nx=cx+dx[i]
-            ny=cy+dy[i]
-            if 0<=nx<SIZE and 0<=ny<SIZE:
-                if not visited[nx][ny] and xy2num(nx,ny) in numbers:
-                    visited[nx][ny]=True
-                    queue.append(xy2num(nx,ny))
-    
+    sx,sy=num2xy(numbers[0])
+    dfs(sx,sy,visited,numbers)
+
     for x in range(SIZE):
         for y in range(SIZE):
             if xy2num(x,y) in numbers and not visited[x][y]:
                 return False
+            
     return True
-
-    
 
 answer=0
 for team in combinations(range(25),7):
