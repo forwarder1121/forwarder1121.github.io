@@ -1,47 +1,57 @@
 import sys
-input = sys.stdin.readline
+from collections import deque
+from itertools import combinations
+input=sys.stdin.readline
 
-SIZE = 5
-board = [list(input().strip()) for _ in range(SIZE)]
+SIZE=5
+board=[list(input().strip()) for _ in range(SIZE)]
 
-dx = [1, -1, 0, 0]
-dy = [0, 0, 1, -1]
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+princesses=[]
 
-princesses = []
-answer = set()
+answer=0
 
-def check(x, y):
-    if (x, y) in princesses:
+def xy2num(x,y):
+    return x*SIZE+y
+def num2xy(num):
+    return num//SIZE,num%SIZE
+
+def ispossible(numbers):
+    S=0
+    for num in numbers:
+        x,y=num2xy(num)
+        if board[x][y]=="S":
+            S+=1
+    if S<4:
         return False
-
-    Y = 0
-    for px, py in princesses:
-        if board[px][py] == 'Y':
-            Y += 1
-
-    if board[x][y] == 'Y' and Y >= 3:
-        return False
-
+    
+    # connected check
+    queue=deque()
+    queue.append(numbers[0])
+    visited=[[False]*SIZE for _ in range(SIZE)]
+    while queue:        
+        cx,cy=num2xy(queue.popleft())
+        visited[cx][cy]=True
+        for i in range(4):
+            nx=cx+dx[i]
+            ny=cy+dy[i]
+            if 0<=nx<SIZE and 0<=ny<SIZE:
+                if not visited[nx][ny] and xy2num(nx,ny) in numbers:
+                    visited[nx][ny]=True
+                    queue.append(xy2num(nx,ny))
+    
+    for x in range(SIZE):
+        for y in range(SIZE):
+            if xy2num(x,y) in numbers and not visited[x][y]:
+                return False
     return True
 
-def P():
-    if len(princesses) == 7:
-        answer.add(frozenset(princesses))  # 🔑 핵심 수정
-        return
+    
 
-    for px, py in princesses:
-        for d in range(4):
-            nx, ny = px + dx[d], py + dy[d]
-            if 0 <= nx < SIZE and 0 <= ny < SIZE:
-                if check(nx, ny):
-                    princesses.append((nx, ny))
-                    P()
-                    princesses.pop()
+answer=0
+for team in combinations(range(25),7):
+    if ispossible(team):
+        answer+=1
 
-for x in range(SIZE):
-    for y in range(SIZE):
-        princesses.append((x, y))
-        P()
-        princesses.pop()
-
-print(len(answer))
+print(answer)
