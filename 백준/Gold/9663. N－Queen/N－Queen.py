@@ -1,44 +1,28 @@
 import sys
-from copy import deepcopy
 input=sys.stdin.readline
 
 N=int(input())
-board=[[0]*N for _ in range(N)]
-used=[False]*N
-answer=0
+used_col=[False]*N
+used_diag1=[False]*(2*N-1)
+used_diag2=[False]*(2*N-1)
 
-diag_1=[False]*(2*N+1) # sum
-diag_2=[False]*(2*N+1) # diff
-
-def can_place(row,col):
-    if used[col]:
-        return False
-    if diag_1[row+col]:
-        return False
-    if diag_2[row-col+N]:
-        return False
-    return True
-
-
-def dfs(row):
+def P(row):
     # base-condition
     if row==N:
         return 1
-    
-    result=0
+    answer=0
     for col in range(N):
-        if can_place(row,col):
+        if not used_col[col] and not used_diag1[row+col] and not used_diag2[row-col+N-1]:
             # apply
-            diag_1[row+col]=True
-            diag_2[row-col+N]=True
-            used[col]=True
-            # dfs
-            result+=dfs(row+1)
+            used_col[col]=True
+            used_diag1[row+col]=True
+            used_diag2[row-col+N-1]=True
+            # bfs
+            answer+=P(row+1)
             # undo
-            diag_1[row+col]=False
-            diag_2[row-col+N]=False
-            used[col]=False
-    
-    return result
+            used_col[col]=False
+            used_diag1[row+col]=False
+            used_diag2[row-col+N-1]=False
+    return answer
 
-print(dfs(0))            
+print(P(0))
