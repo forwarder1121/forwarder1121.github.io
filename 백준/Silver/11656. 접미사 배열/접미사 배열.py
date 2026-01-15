@@ -1,10 +1,10 @@
 import sys
 input=sys.stdin.readline
 
-word=input().strip()
-lists=[]
+S=input().strip()
+result=[]
+for i in range(len(S)):
+    result.append(S[i:])
+result.sort()
 
-for i in range(len(word)):
-    lists.append(word[i:])
-lists.sort()
-print(*lists)
+print(*result)
