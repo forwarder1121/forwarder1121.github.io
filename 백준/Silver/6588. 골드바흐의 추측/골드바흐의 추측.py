@@ -18,7 +18,7 @@ while True:
     flag=False
     for a in range(3,N//2+1,2):
         if is_prime[a] and is_prime[N-a]:
-            print(f"{N} = {a} + {N-a}")
+            print(N, "=", a, "+", N-a)
             flag=True
             break
     if not flag:
