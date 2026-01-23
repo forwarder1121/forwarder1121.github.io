@@ -1,37 +1,37 @@
-import sys,math,heapq
+import sys,heapq,math
+from collections import defaultdict
 input=sys.stdin.readline
 
-# input
 N,M,X=map(int,input().split())
-graph=[[] for _ in range(N+1)] # 1-based
-for _ in range(M):
-    a,b,c=map(int,input().split())
-    graph[a].append((b,c))
+roads=[list(map(int,input().split())) for _ in range(M)]
 
-# dijkstra
-def dijkstra(start,end)->int:
-    dist=[math.inf]*(N+1)
+edges=defaultdict(list)
+reversed_edges=defaultdict(list)
+for u,v,cost in roads:
+    edges[u].append((v,cost))
+    reversed_edges[v].append((u,cost))
+# O()
+def dijkstra(start,graph)->int:
+    dist=[math.inf]*(N+1) # 1-based
     dist[start]=0
-
     pq=[]
-    heapq.heappush(pq,(0,start))
-
+    heapq.heappush(pq,(0,start)) # (cost,node)
     while pq:
         cur_cost,cur_node=heapq.heappop(pq)
-
-        if cur_cost!=dist[cur_node]:
+        if cur_cost>dist[cur_node]:
             continue
-
-        for next_node, cost in graph[cur_node]:
-            new_cost=dist[cur_node]+cost
+        for next_node, next_cost in graph[cur_node]:
+            new_cost=cur_cost+next_cost
             if new_cost<dist[next_node]:
                 dist[next_node]=new_cost
                 heapq.heappush(pq,(new_cost,next_node))
+    return dist
 
-    return dist[end]
 
-# result    
-results=[]
-for student in range(1,N+1):
-    results.append(dijkstra(student,X)+dijkstra(X,student))
-print(max(results))
+from_x=dijkstra(X,edges)
+to_x=dijkstra(X,reversed_edges)
+
+answer=0
+for i in range(1,N+1):
+    answer=max(answer,from_x[i]+to_x[i])
+print(answer)
