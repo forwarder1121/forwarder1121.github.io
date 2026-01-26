@@ -19,7 +19,7 @@ def solution(N, start, end, roads, traps):
     dist=[[math.inf]*(1<<len(traps)) for _ in range(N+1)] # 1-based
     pq=[] # (cost, node, state)
     heapq.heappush(pq,(0,start,0))
-    
+    dist[start][0]=0
     while pq:
         cur_cost,cur_node,cur_state=heapq.heappop(pq)
         
