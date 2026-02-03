@@ -27,8 +27,7 @@ def solution(N, paths, gates, summits):
         if cur_node in summits:
             continue
         for next_node, next_cost in graph[cur_node]:
-            if next_node in gates:
-                continue
+            
             new_cost=max(next_cost,cur_cost)
             if new_cost<intensity[next_node]:
                 intensity[next_node]=new_cost
