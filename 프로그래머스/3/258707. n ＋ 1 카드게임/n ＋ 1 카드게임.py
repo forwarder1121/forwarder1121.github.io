@@ -1,59 +1,55 @@
 def solution(coin, cards):
-    N = len(cards)
-    TARGET = N + 1
-    START = N // 3
-
-    hand = set(cards[:START])   # 초기 손패(공짜)
-    pool = set()                # 이후 공개된 카드들(후보로 쌓기)
-    idx = START
-    rounds = 0
-
-    def take_pair_in_same(S):
-        # S 안에서 TARGET 쌍 하나 제거 가능하면 True
-        for x in list(S):
-            y = TARGET - x
-            if y in S and y != x:
-                S.remove(x)
-                S.remove(y)
-                return True
-        return False
-
-    def take_pair_between(A, B):
-        # A에서 x, B에서 y=TARGET-x 하나 제거 가능하면 True
-        for x in list(A):
-            y = TARGET - x
-            if y in B:
-                A.remove(x)
-                B.remove(y)
-                return True
-        return False
-
+    N=len(cards)
+    hand=set(cards[:N//3])
+    candidates=set()
+    ROUND=0
     while True:
-        # 라운드 시작: 카드 2장 공개
-        if idx >= N:
+        if N//3+ROUND*2==N:
             break
-        pool.add(cards[idx])
-        pool.add(cards[idx + 1])
-        idx += 2
-
-        # 0코인: hand 내부에서 쌍
-        if take_pair_in_same(hand):
-            rounds += 1
+        c1,c2=cards[N//3+ROUND*2],cards[N//3+ROUND*2+1]
+        candidates.add(c1)
+        candidates.add(c2)
+        
+        
+        # hand 안에 N+1 쌍이 있는 경우
+        picked=None
+        for card in hand:
+            if N+1-card in hand:
+                picked=card
+                break
+        
+        if picked:
+            hand.remove(picked)
+            hand.remove(N+1-picked)
+            ROUND+=1
             continue
-
-        # 1코인: hand + pool
-        if coin >= 1 and take_pair_between(hand, pool):
-            coin -= 1
-            rounds += 1
+        
+        # 하나는 hand, 하나는 candidates에 있는 경우
+        for card in hand:
+            if N+1-card in candidates and coin>=1:
+                picked=card
+                coin-=1
+                break
+        
+        if picked:
+            hand.remove(picked)
+            candidates.remove(N+1-picked)
+            ROUND+=1
             continue
-
-        # 2코인: pool 내부에서 쌍
-        if coin >= 2 and take_pair_in_same(pool):
-            coin -= 2
-            rounds += 1
+            
+        # 두개 다 candidates에 있는 경우
+        for card in candidates:
+            if N+1-card in candidates and coin>=2:
+                picked=card
+                coin-=2
+                break
+        if picked:
+            candidates.remove(picked)
+            candidates.remove(N+1-picked)
+            ROUND+=1
             continue
-
-        # 어떤 방식으로도 못 내면 종료
+        # 어떤 경우도 해당하지 않는 경우
         break
 
-    return rounds+1
+        
+    return ROUND+1
