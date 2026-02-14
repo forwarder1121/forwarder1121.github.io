@@ -2,16 +2,18 @@ import sys
 input=sys.stdin.readline
 
 N,M=map(int,input().split())
+arr=list(map(int,input().split()))
 
-numbers=[0]+list(map(int,input().split())) # 1-based
-cases=[tuple(map(int,input().split())) for _ in range(M)]
+prefix=[0]*N
 
-dp=[0]*(N+1)
-dp[1]=numbers[1]
+for i in range(N):
+    prefix[i]=prefix[i-1]+arr[i]
 
-for x in range(2,N+1):
-    dp[x]=dp[x-1]+numbers[x]
+answer=[]
+for _ in range(M):
+    i,j=map(int,input().split())
+    i_idx,j_idx=i-1,j-1
+    result=prefix[j_idx]-prefix[i_idx]+arr[i_idx]
+    answer.append(result)
 
-for case in cases:
-    l,r=case
-    print(dp[r]-dp[l-1])
+print(*answer)
