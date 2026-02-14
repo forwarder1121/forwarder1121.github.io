@@ -4,16 +4,11 @@ input=sys.stdin.readline
 N,M=map(int,input().split())
 arr=list(map(int,input().split()))
 
-prefix=[0]*N
+prefix=[0]*(N+1)
+for i in range(1,N+1):
+    prefix[i]=prefix[i-1]+arr[i-1]
 
-for i in range(N):
-    prefix[i]=prefix[i-1]+arr[i]
-
-answer=[]
 for _ in range(M):
     i,j=map(int,input().split())
-    i_idx,j_idx=i-1,j-1
-    result=prefix[j_idx]-prefix[i_idx]+arr[i_idx]
-    answer.append(result)
-
-print(*answer)
+    answer=prefix[j]-prefix[i-1]
+    print(answer)
