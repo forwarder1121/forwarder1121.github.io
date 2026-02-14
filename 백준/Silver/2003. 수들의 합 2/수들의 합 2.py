@@ -1,25 +1,21 @@
-import sys
+import sys,math
 input=sys.stdin.readline
 
 N,M=map(int,input().split())
-numbers=list(map(int,input().split()))
-
-left=right=total=0
-result=0
-
-while True:
-    if total<M:
-        if right==N:
-            break
-        total+=numbers[right]
-        right+=1
-    elif total>M:
-        total-=numbers[left]
-        left+=1
-    else:
-        result+=1
-        total-=numbers[left]
-        left+=1
+arr=list(map(int,input().split()))
 
 
-print(result)
+
+start=0
+window_sum=0
+answer=0
+for end in range(N):
+    window_sum+=arr[end]
+    
+    while window_sum>=M:
+        if window_sum==M:
+            answer+=1
+        window_sum-=arr[start]
+        start+=1
+
+print(answer)
