@@ -1,26 +1,23 @@
 import sys,math
 input=sys.stdin.readline
+
 N,S=map(int,input().split())
+arr=list(map(int,input().split()))
 
-numbers=list(map(int,input().split()))
+prefix=[0]*(N+1)
+for i in range(1,N+1):
+    prefix[i]=prefix[i-1]+arr[i-1]
 
-# two pointers
-left=right=0
-curr_sum=0
-min_length=math.inf
-
-while(left<N):
-    # expand
-    if curr_sum<S:
-        if right==N:
-            break
-        curr_sum+=numbers[right]
-        right+=1
-
-    # shrink
+best=math.inf
+start=0
+end=1
+while end<=N:
+    interval_sum=prefix[end]-prefix[start]
+    if interval_sum>=S:
+        best=min(best,end-start)
+        start+=1
     else:
-        min_length=min(min_length,right-left)
-        curr_sum-=numbers[left]
-        left+=1
+        end+=1
 
-print(min_length if min_length!=math.inf else 0)
+
+print(best if best is not math.inf else 0)
