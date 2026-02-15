@@ -9,7 +9,7 @@ M=int(input())
 B=list(map(int,input().split()))
 
 freq_A=defaultdict(int)
-freq_B=defaultdict(int)
+
 
 prefix_A=[0]*(N+1)
 prefix_B=[0]*(M+1)
