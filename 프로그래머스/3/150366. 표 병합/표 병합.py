@@ -1,80 +1,92 @@
-SIZE=50
-parent=[i for i in range(SIZE*SIZE)]
-state=["" for _ in range(SIZE*SIZE)]
-def pos2node(r,c):
-    node_number=(r-1)*SIZE+(c-1)
-    return node_number
+
 
 def solution(commands):
+    
+    SIZE=50
+    N=SIZE*SIZE
+    parent=[i for i in range(N)]
+    state=[""]*N
+
+
+    def to_index(r,c):
+        node_number=(r-1)*SIZE+(c-1)
+        return node_number
+
+
+    def find(node):
+        ''' Returns number of parent node'''
+        # base-condition
+        if node==parent[node]:
+            return node
+        parent[node]=find(parent[node])
+        return parent[node]
+
+    def union(a,b):
+        ''' Unions node a,b according to condition of problems '''
+        ra=find(a)
+        rb=find(b)
+        if ra==rb:
+            return
+        if state[ra]=="" and state[rb]!="":
+            parent[ra]=rb
+        else:
+            parent[rb]=ra
+    
     answer = []
     for command in commands:
-        oper=command.split()[0]
+        parts=command.split()
+        oper=parts[0]
         if oper=="PRINT":
-            r,c=map(int,command.split()[1:])
-            p_target_node=find_parent(pos2node(r,c))
-            result=state[p_target_node]
+            r,c=map(int,parts[1:])
+            root=find(to_index(r,c))
+            result=state[root]
             if result:
                 answer.append(result)
             else:
                 answer.append("EMPTY")
         elif oper=="MERGE":
-            r1,c1,r2,c2=map(int,command.split()[1:])
-            p_node1=find_parent(pos2node(r1,c1))
-            p_node2=find_parent(pos2node(r2,c2))
-            if state[p_node1] and not state[p_node2]:
-                union_parent(p_node1,p_node2)
-            elif state[p_node2] and not state[p_node1]:
-                union_parent(p_node2,p_node1)
-            else:
-                union_parent(p_node1,p_node2)
+            r1,c1,r2,c2=map(int,parts[1:])
+            union(to_index(r1,c1),to_index(r2,c2))
                 
             
         elif oper=="UNMERGE":
-            r,c=map(int,command.split()[1:])
-            target_node=pos2node(r,c)
-            p_target_node=find_parent(target_node)
-            original_value=state[p_target_node]
-            unmerged_nodes=[node for node in range(SIZE*SIZE) if find_parent(node)==p_target_node]
-            for unmerged_node in unmerged_nodes:     
-                state[unmerged_node]=""
-                parent[unmerged_node]=unmerged_node
-            state[target_node]=original_value
+            r,c=map(int,parts[1:])
+            target_node=to_index(r,c)
+            root=find(target_node)
+            original_value=state[root]
+            
+            # 1) collect members first (NO mutation)
+            group = []
+            for node in range(N):
+                if find(node) == root:
+                    group.append(node)
+
+            # 2) reset all
+            for node in group:
+                parent[node] = node
+                state[node] = ""
+
+            # 3) only target keeps the value
+            
+            for node in range(N):
+                if find(node)==root:
+                    parent[node]=node
+                    state[node]=""
+            state[target_node] = original_value
             
         elif oper=="UPDATE":
-            argv=list(command.split()[1:])
-            if len(argv)==3:
+            if len(parts)==4:
                 ''' TYPE 1 : UPDATE r c value '''
-                r,c,value=argv
-                r=int(r)
-                c=int(c)
-                target_node=pos2node(r,c)
-                p_target_node=find_parent(target_node)
-                state[p_target_node]=value
+                r,c,value=parts[1:]
+                target_node=to_index(int(r),int(c))
+                root=find(target_node)
+                state[root]=value
             else:
                 ''' TYPE 2 : UPDATE value1 value2 '''
-                value1,value2=argv
-                selected_nodes=set()
-                for node in range(SIZE*SIZE):
-                    if state[find_parent(node)]==value1:
-                        selected_nodes.add(parent[node])
-                for selected_node in selected_nodes:
-                    state[selected_node]=value2
+                value1,value2=parts[1:]
+                for node in range(N):
+                    if find(node)==node and state[node]==value1:
+                        state[node]=value2
     
     return answer
 
-
-def find_parent(node):
-    ''' Returns number of parent node'''
-    # base-condition
-    if node==parent[node]:
-        return node
-    parent[node]=find_parent(parent[node])
-    return parent[node]
-
-def union_parent(node1,node2):
-    ''' Unions node2 to node1 '''
-    a=find_parent(node1)
-    b=find_parent(node2)
-    parent[b]=a
-        
-        
