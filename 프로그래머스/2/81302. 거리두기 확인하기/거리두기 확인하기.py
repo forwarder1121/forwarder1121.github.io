@@ -1,41 +1,47 @@
-import copy
 def solution(places):
+    SIZE=5
     
-    N=5
-    dx=[-1,1,0,0]
-    dy=[0,0,-1,1]
     
-    def is_safe(place): 
+    def check(place):
         board=[]
-        for x in range(N): # O(N)
-            board.append(list(place[x]))
-        
-        persons=[] # O(N^2)
-        for x in range(N):
-            for y in range(N):
+        for p in place:
+            board.append(list(p))
+        interviewers=[]
+        for x in range(SIZE):
+            for y in range(SIZE):
                 if board[x][y]=="P":
-                    persons.append((x,y))
-        
-        
-        for px,py in persons: # O(N^2)
-            for i in range(4):
-                nx=px+dx[i]
-                ny=py+dy[i]
-                if 0<=nx<N and 0<=ny<N:
-                    if board[nx][ny]=="1" or board[nx][ny]=="P":
-                        return False
-                    if board[nx][ny]=="X":
-                        continue
-                    board[nx][ny]="1"
-        
+                    interviewers.append((x,y))
+        # interviewers is already sorted
+        for i in range(len(interviewers)):
+            for j in range(i+1,len(interviewers)):
+                sx,sy=interviewers[i]
+                ex,ey=interviewers[j]
+                dist=abs(sx-ex)+abs(sy-ey)
+                if dist==1:
+                    return False
+                elif dist==2:
+                    if sx==ex:
+                        if board[sx][sy+1]=="O":
+                            return False
+                    elif sy==ey:
+                        if board[sx+1][sy]=="O":
+                            return False
+                    elif sy<ey:
+                        if board[sx][sy+1]=="O" or board[sx+1][sy]=="O":
+                            return False
+                    else:
+                        if board[sx][sy-1]=="O" or board[sx+1][sy]=="O":
+                            return False
         return True
-    
-    
+                            
+        
+                    
     answer = []
     for place in places:
-        if is_safe(place):
+        if check(place):
             answer.append(1)
         else:
             answer.append(0)
     
+   
     return answer
