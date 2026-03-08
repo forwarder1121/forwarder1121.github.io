@@ -1,45 +1,41 @@
-import math
 from collections import defaultdict
+import math
 def solution(fees, records):
+    reports=defaultdict(lambda : defaultdict(int))
     
-    def str2minute(time_stamp):
+    def time2minute(time_stamp):
         HH,MM=map(int,time_stamp.split(":"))
         return HH*60+MM
     
-    
-    # COLLECTION
-    car_infos=defaultdict(lambda: defaultdict(int))
-    
     for record in records:
-        time_stamp,car_number,content=record.split(" ")
-        cur_time=str2minute(time_stamp)
+        time_stamp, car_number, content=record.split(" ")
+        minute=time2minute(time_stamp)
         if content=="IN":
-            car_infos[car_number]["IN"]=cur_time
-            car_infos[car_number]["OUT"]=None
-        elif content=="OUT":
-            car_infos[car_number]["OUT"]=cur_time
-            parking_minutes=car_infos[car_number]["OUT"]-car_infos[car_number]["IN"]
-            car_infos[car_number]["TOTAL"]+=parking_minutes
-            
-    
-    for car_number in car_infos:
-        if not car_infos[car_number]["OUT"]:
-            car_infos[car_number]["TOTAL"]+=str2minute("23:59")-car_infos[car_number]["IN"]
-            
-    
-    print(car_infos)
-    # CALCULATE
-    base_time,base_fee,unit_time,unit_fee=fees
-    results=[] # (number, fee)
-    for car_number in car_infos:
-        total_time=car_infos[car_number]["TOTAL"]
-        if total_time<=base_time:
-            results.append((car_number,base_fee))
+            reports[car_number]["in_time"]=minute
+            reports[car_number]["is_now_parked"]=True
         else:
-            results.append((car_number,base_fee+math.ceil((total_time-base_time)/unit_time)*unit_fee))
-    
-    results.sort(key=lambda x:x[0])
-    answer=[result[1] for result in results]
+            reports[car_number]["total_parked_time"]+=\
+            minute-reports[car_number]["in_time"]
+            reports[car_number]["is_now_parked"]=False
             
+    for car_number in reports:
+        if reports[car_number]["is_now_parked"]:
+            reports[car_number]["total_parked_time"]+=\
+            time2minute("23:59")-reports[car_number]["in_time"]
     
+    bt, bf, ut, uf=fees
+    
+    def calculate_tax(tt):
+        if tt<=bt:
+            return bf
+        else:
+            return bf+math.ceil((tt-bt)/ut)*uf
+    
+    result=[]
+    for car_number in reports:
+        tax=calculate_tax(reports[car_number]["total_parked_time"])
+        result.append((int(car_number),tax))
+    result.sort()
+    
+    answer=[tax for _,tax in result]
     return answer
