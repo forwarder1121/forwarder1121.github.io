@@ -1,37 +1,60 @@
-from collections import defaultdict
-from itertools import combinations
-
-def solution(dices):
+from collections import Counter
+def solution(dice):
     
-    def P(given_dices,idx,total,record):
-        # base-condition
-        if idx==N//2:
-            record[total]+=1
-            return
-        for face in range(6):
-            new_face=dices[given_dices[idx]][face]
-            P(given_dices,idx+1,total+new_face,record)
-               
-    N=len(dices) # 0-based
+    N=len(dice)
+    
+    def evaluate(path):
+        ''' Return number of wins of A
+            path[i]=1 -> A, path[i]=2 -> B '''
+        A=[]
+        B=[]
+        for i in range(N):
+            if path[i]:
+                A.append(dice[i])
+            else:
+                B.append(dice[i])
+                
+        def get_dist(dices):
+            dist=Counter({0:1})
+            for dice in dices:
+                new=Counter()
+                for val,cnt in dist.items():
+                    for face in dice:
+                        new[val+face]+=cnt
+                dist=new
+            return dist
+        
+        A_list=get_dist(A)
+        B_list=get_dist(B)
+        
+        wins=0
+        for a_sum,a_cnt in A_list.items():
+            for b_sum,b_cnt in B_list.items():
+                if a_sum>b_sum:
+                    wins+=a_cnt*b_cnt
+        return wins
+                
+    
+    def P(depth,remain,path):
+        ''' Returns (maximum number of wins, best path) within current state '''
+        # base
+        if depth==N:
+            if remain==0:
+                return evaluate(path),path[:]
+            return -1,[]
+        best=-1,[]
+        path[depth]=0
+        best=max(best,P(depth+1, remain,path))
+        
+        if remain>0:
+            path[depth]=1
+            best=max(best,P(depth+1,remain-1,path))
+        return best
+    
+    max_win,best_path = P(0,N//2,[0]*N)
     answer=[]
-    max_win_count=-1
-    for dice_A in combinations(range(N),N//2):
-        dice_B=[]
-        for num in range(N):
-            if num in dice_A:
-                continue
-            dice_B.append(num)
-        result_A=defaultdict(int)
-        result_B=defaultdict(int)  # dict[sum]=frequency
-        P(dice_A,0,0,result_A)
-        P(dice_B,0,0,result_B)
-        win_cnt=0
-        for a in result_A:
-            for b in result_B:
-                if a>b:
-                    win_cnt+=result_A[a]*result_B[b]
-        if win_cnt>max_win_count:
-            max_win_count=win_cnt
-            answer=[num+1 for num in dice_A] # 1-based
-            
+    for i,v in enumerate(best_path):
+        if v==1:
+            answer.append(i+1)
+    
     return answer
