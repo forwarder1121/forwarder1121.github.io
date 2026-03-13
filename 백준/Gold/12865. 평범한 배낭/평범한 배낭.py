@@ -13,9 +13,9 @@ for _ in range(N):
     value.append(v)
 
 @lru_cache(None)
-def P(depth,remain):
-    ''' Return "Future" best maximum value within current state.'''
-    # base-condition
+def P(depth, remain):
+    ''' Return best sum(value) of the future choice '''
+    # base
     if depth==N:
         return 0
     best=-1
@@ -23,8 +23,7 @@ def P(depth,remain):
     best=max(best,P(depth+1,remain))
     # pick up
     if remain>=weight[depth]:
-        best=max(best,value[depth]+P(depth+1,remain-weight[depth]))
-    
+        best=max(best,P(depth+1,remain-weight[depth])+value[depth])
     return best
 
 answer=P(0,K)
