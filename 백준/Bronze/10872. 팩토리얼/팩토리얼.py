@@ -1,0 +1,12 @@
+import sys,math
+input=sys.stdin.readline
+
+
+
+def factorial(N):
+    if N==0:
+        return 1
+    return N*factorial(N-1)
+    
+N=int(input())
+print(factorial(N))
