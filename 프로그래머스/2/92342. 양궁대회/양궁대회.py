@@ -1,54 +1,36 @@
-def solution(n, info):
-    info = info[::-1]  # 0점 -> 10점
-
+def solution(N, info):
+    info.reverse()
+    
     def evaluate(path):
-        apeach = 0
-        ryan = 0
-
-        for i in range(11):
-            if info[i] == 0 and path[i] == 0:
+        ''' evaluate path and return (diff, path) upon given path '''
+        ryan=0
+        apache=0
+        
+        for score in range(11):
+            if path[score]==0 and info[score]==0:
                 continue
-
-            if path[i] > info[i]:
-                ryan += i
+            elif path[score]>info[score]:
+                ryan+=score
             else:
-                apeach += i
-
-        diff = ryan - apeach
-        return diff, tuple(path), path
-
-    def P(depth, remain, path):
-        """
-        1점~10점에 대한 선택을 DFS로 탐색하고,
-        (최대 점수차, tie-break key, 최적 path)를 반환한다.
-
-        depth  : 현재 점수 index (1~10)
-        remain : 남은 화살 수
-        path   : 현재 화살 분배 상태 (0점~10점)
-        """
-        if depth == 11:
-            final_path = path[:]
-            final_path[0] += remain  # 남은 화살은 0점에 몰기
-            return evaluate(final_path)
-
-        best = (-1, (), [])
-
-        need = info[depth] + 1
-
-        # 이 점수를 이기는 경우
-        if remain >= need:
-            new_path = path[:]
-            new_path[depth] = need
-            best = max(best, P(depth + 1, remain - need, new_path))
-
-        # 포기하는 경우
-        best = max(best, P(depth + 1, remain, path[:]))
-
+                apache+=score
+        diff=ryan-apache
+        return diff,path
+                
+    
+    def P(depth,remain,path):
+        ''' Return (best_diff, best_path) within current state '''
+        if depth==11:
+            return evaluate([remain]+path)
+        best=-1,[]
+        best=max(best,P(depth+1,remain,path[:]+[0]))
+        if remain>info[depth]:
+            best=max(best,P(depth+1,remain-info[depth]-1,path[:]+[info[depth]+1]))
         return best
-
-    diff, _, best_path = P(1, n, [0] * 11)
-
-    if diff <= 0:
-        return [-1]
-
-    return best_path[::-1]  # 다시 10점 -> 0점
+    
+    answer=None
+    max_diff,best_path = P(1,N,[])
+    if max_diff>0:
+        answer=best_path[::-1]
+    else:
+        answer=[-1]
+    return answer
