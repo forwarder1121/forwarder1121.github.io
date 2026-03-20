@@ -1,11 +1,11 @@
 def solution(N, info):
+    
     info.reverse()
     
     def evaluate(path):
-        ''' evaluate path and return (diff, path) upon given path '''
+        ''' Return diff, path upon given path '''
         ryan=0
         apache=0
-        
         for score in range(11):
             if path[score]==0 and info[score]==0:
                 continue
@@ -14,23 +14,27 @@ def solution(N, info):
             else:
                 apache+=score
         diff=ryan-apache
-        return diff,path
-                
+        return diff, path
     
-    def P(depth,remain,path):
-        ''' Return (best_diff, best_path) within current state '''
+    def P(depth, remain, path):
+        ''' Returns best_diff, best_path within current state '''
+        # base-condition
         if depth==11:
-            return evaluate([remain]+path)
-        best=-1,[]
-        best=max(best,P(depth+1,remain,path[:]+[0]))
+            path[0]=remain
+            return evaluate(path)
+        best=-1,[-1]
+        # no pick
+        best=max(best,P(depth+1,remain,path[:]))
+        # pick
         if remain>info[depth]:
-            best=max(best,P(depth+1,remain-info[depth]-1,path[:]+[info[depth]+1]))
+            new_path=path[:]
+            new_path[depth]=info[depth]+1
+            best=max(best,P(depth+1,remain-info[depth]-1,new_path))
         return best
-    
-    answer=None
-    max_diff,best_path = P(1,N,[])
-    if max_diff>0:
-        answer=best_path[::-1]
+        
+    best_diff, best_path = P(1,N,[0]*11)
+    if best_diff>0:
+        return best_path[::-1]
     else:
-        answer=[-1]
-    return answer
+        return [-1]
+    
