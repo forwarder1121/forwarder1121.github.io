@@ -1,12 +1,11 @@
+# O(NlogN)
+import sys,heapq
+input=sys.stdin.readline
+
 N=int(input())
-P=list(map(int,input().split()))
-result=0
-P.sort()
+costs=list(map(int,input().split()))
 
-for idx in range(N):
-    result+=P[idx]*(N-idx)
+costs.sort()
 
-print(result)
-
-# 5
-# 3 1 4 3 2
+answer=sum([(N-i)*val for i,val in enumerate(costs)])
+print(answer)
