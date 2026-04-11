@@ -13,6 +13,7 @@ for _ in range(N-1):
 parent=[-1]*(N+1) # 1-based
 queue=deque()
 queue.append(1)
+parent[1]=1
 
 while queue:
     cur=queue.popleft()
@@ -20,7 +21,6 @@ while queue:
         if parent[nxt]==-1:
             parent[nxt]=cur
             queue.append(nxt)
-
 
 answer=[p for i,p in enumerate(parent) if i>=2]
 print(*answer)
