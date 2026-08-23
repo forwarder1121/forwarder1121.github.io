@@ -1,83 +1,85 @@
 def solution(arr, L, R):
     
-    K=0
-    N=len(arr)
-
+    # 기본 가정 : 구간은 모두 반열린구간이며, 0-based이다.
     L-=1
     
-    last_idx=0
-    # a는 brr[s,e)를 점유한다.
+    # 문제 1. K 구하기
+    K=0
+    e=0
     for a in arr:
-        s=last_idx
-        e=s+a     
+        # a는 brr의 구간 [s,e)를 점유한다.
+        s,e=e,e+a
+        
         overlap=max(0,min(R,e)-max(L,s))
-                
         K+=overlap*a
-        last_idx=e
-
-
+    
+    # 문제 2. C 구하기
     C=0
-    x=0
-    Sx=0
     W=R-L
-    last_idx=0
+    N=len(arr)
+
+    # i는 Slinding-Window의 앞 부분을 생성한 arr 상의 인덱스
+    # j는 Slinding-Window의 뒷 부분을 생성한 arr 상의 인덱스
+    i,j=0,0
+    # ei는 arr[i]가 brr의 인덱스의 마지막 인덱스(미포함)
+    # ej는 arr[j]가 brr의 인덱스의 마지막 인덱스(미포함)
+    ei,ej=arr[0],None
+    e=0
+    for k in range(N):
+        a=arr[k]
+        # a[k]는 brr의 구간 [s,e)를 점유한다.
+        s,e=e,e+a
+        if s<=W<e:
+            j=k
+            ej=e
+            break
+    # i, j, ei, sj 초기화 완료
+    
+    
+    # Sx 초기화
+    Sx=0
+    e=0
     for a in arr:
-        s,e=last_idx,last_idx+a
+        # a는 brr의 구간 [s,e)를 점유한다.
+        s,e=e,e+a
         overlap=max(0,min(W,e)-max(0,s))
         Sx+=overlap*a
-        last_idx=e
-        
+    
+    
+    x=0
     total=sum(arr)
-    if W==total:
-        return [K,1]
-    
-    # Sx는 brr[x,x+W)의 합을 가지고 있다.
-    out_value=arr[0] # brr[x]의 값
-    out_end=arr[0]   # brr[x]가 처음으로 깨지는 brr상의 인덱스
-    out_idx=0 # brr[x]를 만드는 arr상의 인덱스
-    in_value=arr[0] # brr[x+W]의 값
-    in_end=arr[0]   # brr[x+W]가 처음으로 깨지는 brr상의 인덱스
-    in_idx=0 # brr[x+W]를 만든 arr상의 인덱스
-    
-    while W>=in_end:
-        in_idx+=1
-        in_end+=arr[in_idx]
-        
-    in_value=arr[in_idx]
-    
-    while x<total-W:
-        
+    while x+W<total:
+        next_x=min(ei,ej-W)
+        # brr의 인덱스 구간 [x,next_x)에서는 delta가 일정
+        out_value=arr[i]
+        in_value=arr[j]
         delta=in_value-out_value
-        next_x=min(out_end,in_end-W)
         
-        step_limit=next_x-x # step_limit번 미만으로 이동 가능하다.
-        required_amount=K-Sx
         if delta==0:
             if Sx==K:
-                C+=step_limit
-        elif required_amount%delta==0:
-            step=required_amount//delta # step번 이동하면 K 도달 가능.
-            if 0<=step<step_limit:
-                C+=1
+                C+=next_x-x
+        else:
+            if (K-Sx)%delta==0:
+                t=(K-Sx)//delta
+                if 0<=t<next_x-x:
+                    C+=1
         
-        x=next_x  
-        Sx+=delta*step_limit
-        
-        if x==total-W:
-            break
+        # x,Sx와 i,j,ei,ej 갱신
+        Sx+=(delta)*(next_x-x)
+        x=next_x
+        if x==ei:
+            i+=1
+            ei+=arr[i]
+        if x==ej-W:
+            j+=1
+            if j==N:
+                break
+            ej+=arr[j]
             
-        if x==out_end:
-            out_idx+=1
-            out_value=arr[out_idx]
-            out_end+=arr[out_idx]
-        if x+W==in_end:
-            in_idx+=1
-            in_value=arr[in_idx]
-            in_end+=arr[in_idx]
-            
-    if Sx == K:
-        C += 1
-    print("K : ",K) 
-    print("C : ",C)
+    if Sx==K:
+        C+=1
+    
+    
+    
     answer = [K,C]
     return answer
